@@ -2,7 +2,7 @@ import React from 'react';
 
 const Admin = () => (
   <div>
-    <p>This is home</p>
+    <p>This is admin</p>
   </div>
 );
 

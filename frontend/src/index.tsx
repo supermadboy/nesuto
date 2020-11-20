@@ -1,16 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Router } from '@reach/router';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import Home from './components/Home';
 import Admin from './components/Admin';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <Router>
-    <Home path="/" />
-    <Admin path="admin" />
-
+    <Switch>
+      <Route path="/admin">
+        <Admin />
+      </Route>
+      <Route path="/">
+        <Home />
+      </Route>
+    </Switch>
   </Router>,
   document.getElementById('root'),
 );
