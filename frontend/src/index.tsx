@@ -6,25 +6,29 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/client';
 import Adverts from './components/Adverts';
 import Home from './components/Home';
 import Admin from './components/Admin';
 import reportWebVitals from './reportWebVitals';
+import client from './utility/apolloClient';
 
 ReactDOM.render(
-  <Router>
-    <Switch>
-      <Route path="/admin">
-        <Admin />
-      </Route>
-      <Route path="/adverts">
-        <Adverts />
-      </Route>
-      <Route path="/">
-        <Home />
-      </Route>
-    </Switch>
-  </Router>,
+  <ApolloProvider client={client}>
+    <Router>
+      <Switch>
+        <Route path="/admin">
+          <Admin />
+        </Route>
+        <Route path="/adverts">
+          <Adverts />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
+  </ApolloProvider>,
   document.getElementById('root'),
 );
 
