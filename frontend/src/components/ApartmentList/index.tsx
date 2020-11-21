@@ -1,13 +1,12 @@
 import React from 'react';
+import { Apartment } from '../../utility/types';
 
-const ApartmentList = (props: any) => {
+const ApartmentList = (props: { apartments: Apartment[]}) => {
   const { apartments } = props;
-
-  if (!apartments) return <p>lmao</p>;
 
   return (
     <div>
-      { apartments.map((apartment: any) => <p>{apartment.title}</p>) }
+      { apartments.map((apartment) => <p>{apartment.title}</p>) }
     </div>
   );
 };

@@ -1,18 +1,10 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import React from 'react';
+import { APARTMENTS, ApartmentsData } from '../../graphql/queries/apartments';
 import ApartmentList from '../ApartmentList';
 
-const GET_APARTMENTS = gql`
-  {
-    apartments {
-      title
-      description
-    }
-  }
-`;
-
 const Adverts = () => {
-  const { loading, error, data } = useQuery(GET_APARTMENTS);
+  const { loading, error, data } = useQuery<ApartmentsData>(APARTMENTS);
 
   if (error) return <p>{error}</p>;
 
@@ -21,7 +13,10 @@ const Adverts = () => {
   return (
     <div>
       <p>This is Adverts</p>
-      <ApartmentList apartments={data.apartments} />
+      {
+       data
+       && <ApartmentList apartments={data.apartments} />
+      }
     </div>
   );
 };
