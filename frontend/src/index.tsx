@@ -6,6 +6,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import Adverts from './components/Adverts';
 import Home from './components/Home';
 import Admin from './components/Admin';
 import reportWebVitals from './reportWebVitals';
@@ -15,6 +16,9 @@ ReactDOM.render(
     <Switch>
       <Route path="/admin">
         <Admin />
+      </Route>
+      <Route path="/adverts">
+        <Adverts />
       </Route>
       <Route path="/">
         <Home />
