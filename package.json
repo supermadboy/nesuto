@@ -1,8 +1,0 @@
-{
-  "name": "nesuto",
-  "version": "0.1.0",
-  "description": "Website for real estate selling management",
-  "main": "index.js",
-  "author": "Markus Szarvas",
-  "license": "MIT"
-}
