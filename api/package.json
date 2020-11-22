@@ -6,15 +6,22 @@
   "author": "Markus Szarvas",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.ts"
+    "start": "nodemon index.ts",
+    "gen-gql": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "apollo-datasource-mongodb": "^0.2.8",
     "apollo-server-express": "^2.19.0",
     "express": "^4.17.1",
+    "graphql": "^15.4.0",
     "mongodb": "^3.6.3"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "1.19.2",
+    "@graphql-codegen/introspection": "1.18.0",
+    "@graphql-codegen/typescript": "1.17.11",
+    "@graphql-codegen/typescript-operations": "1.17.10",
+    "@graphql-codegen/typescript-resolvers": "1.17.11",
     "@types/node": "^14.14.9",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
