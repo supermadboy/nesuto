@@ -18,7 +18,7 @@ export type Query = {
 
 export type Apartment = {
   __typename?: 'Apartment';
-  _id: Scalars['ID'];
+  _id?: Maybe<Scalars['ID']>;
   title: Scalars['String'];
   description: Scalars['String'];
 };
@@ -141,7 +141,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type ApartmentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Apartment'] = ResolversParentTypes['Apartment']> = {
-  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

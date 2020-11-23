@@ -12,7 +12,7 @@ import Apartments from '../data-sources/Apartments';
 const Apartment = new GraphQLObjectType({
   name: 'Apartment',
   fields: {
-    _id: { type: GraphQLNonNull(GraphQLID) },
+    _id: { type: GraphQLID },
     title: { type: GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLNonNull(GraphQLString) },
   },
@@ -31,7 +31,7 @@ const nesutoQueries = new GraphQLObjectType({
   fields: {
     apartments: {
       type: GraphQLList(Apartment),
-      async resolve(root, args, { apartmentsApi }) {
+      async resolve(root, args, { apartmentsApi }: {apartmentsApi: Apartments}) {
         const result = await apartmentsApi.apartments();
 
         return result;
