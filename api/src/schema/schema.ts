@@ -50,8 +50,8 @@ const nesutoMutations = new GraphQLObjectType({
           type: GraphQLNonNull(addApartment),
         },
       },
-      async resolve(root, { title, description }, { apartmentsApi }: {apartmentsApi: Apartments}) {
-        const result = await apartmentsApi.addApartment(title, description);
+      async resolve(root, { input }, { apartmentsApi }: {apartmentsApi: Apartments}) {
+        const result = await apartmentsApi.addApartment(input.title, input.description);
 
         return result;
       },

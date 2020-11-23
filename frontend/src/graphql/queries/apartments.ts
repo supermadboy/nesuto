@@ -13,3 +13,13 @@ export const APARTMENTS = gql`
     }
   }
 `;
+
+export const ADD_APPARTMENT = gql`
+  mutation addApartment($title: String!, $description: String!) {
+    addApartment(input: { title: $title, description: $description }) {
+      _id
+      title
+      description
+    }
+  }
+`;
