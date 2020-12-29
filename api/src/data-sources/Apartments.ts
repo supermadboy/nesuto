@@ -1,4 +1,5 @@
 import { MongoDataSource } from 'apollo-datasource-mongodb';
+import { ObjectID } from 'mongodb';
 import { Apartment } from '../generated/graphql';
 
 export default class Apartments extends MongoDataSource<Apartment> {
@@ -11,5 +12,12 @@ export default class Apartments extends MongoDataSource<Apartment> {
     const result = await this.collection.insertOne({ title, description });
 
     return result.ops[0];
+  }
+
+  async removeApartment(_id: string) {
+    // @ts-ignore
+    const result = await this.collection.deleteOne({ _id: new ObjectID(_id) });
+
+    return result.result;
   }
 }

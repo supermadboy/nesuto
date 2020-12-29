@@ -26,6 +26,13 @@ const addApartment = new GraphQLInputObjectType({
   },
 });
 
+const removeApartment = new GraphQLInputObjectType({
+  name: 'removeApartment',
+  fields: {
+    _id: { type: GraphQLNonNull(GraphQLID) },
+  },
+});
+
 const nesutoQueries = new GraphQLObjectType({
   name: 'Query',
   fields: {
@@ -52,6 +59,19 @@ const nesutoMutations = new GraphQLObjectType({
       },
       async resolve(root, { input }, { apartmentsApi }: {apartmentsApi: Apartments}) {
         const result = await apartmentsApi.addApartment(input.title, input.description);
+
+        return result;
+      },
+    },
+    removeApartment: {
+      type: GraphQLNonNull(Apartment),
+      args: {
+        input: {
+          type: GraphQLNonNull(removeApartment),
+        },
+      },
+      async resolve(root, { input }, { apartmentsApi }: {apartmentsApi: Apartments}) {
+        const result = await apartmentsApi.removeApartment(input._id);
 
         return result;
       },

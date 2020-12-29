@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
-import { ADD_APPARTMENT } from '../../graphql/queries/apartments';
+import { ADD_APARTMENT } from '../../graphql/queries/apartments';
 import { Apartment } from '../../utility/types';
 
 const Admin = () => {
@@ -10,7 +10,7 @@ const Admin = () => {
   const [addApartment, { error, data }] = useMutation<
     { apartment: Apartment },
     { title: string, description: string }
-  >(ADD_APPARTMENT, {
+  >(ADD_APARTMENT, {
     variables: { title, description },
   });
 
