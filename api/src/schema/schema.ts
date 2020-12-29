@@ -8,6 +8,7 @@ import {
   GraphQLString,
 } from 'graphql';
 import Apartments from '../data-sources/Apartments';
+import Users from '../data-sources/Users';
 
 const Apartment = new GraphQLObjectType({
   name: 'Apartment',
@@ -15,6 +16,15 @@ const Apartment = new GraphQLObjectType({
     _id: { type: GraphQLID },
     title: { type: GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLNonNull(GraphQLString) },
+  },
+});
+
+const User = new GraphQLObjectType({
+  name: 'User',
+  fields: {
+    _id: { type: GraphQLID },
+    username: { type: GraphQLNonNull(GraphQLString) },
+    password: { type: GraphQLNonNull(GraphQLString) },
   },
 });
 
@@ -33,6 +43,14 @@ const removeApartment = new GraphQLInputObjectType({
   },
 });
 
+const addUser = new GraphQLInputObjectType({
+  name: 'addUser',
+  fields: {
+    username: { type: GraphQLNonNull(GraphQLString) },
+    password: { type: GraphQLNonNull(GraphQLString) },
+  },
+});
+
 const nesutoQueries = new GraphQLObjectType({
   name: 'Query',
   fields: {
@@ -40,6 +58,18 @@ const nesutoQueries = new GraphQLObjectType({
       type: GraphQLList(Apartment),
       async resolve(root, args, { apartmentsApi }: {apartmentsApi: Apartments}) {
         const result = await apartmentsApi.apartments();
+
+        return result;
+      },
+    },
+    user: {
+      type: User,
+      args: {
+        username: {type: GraphQLString},
+        password: {type: GraphQLString},
+      },
+      async resolve(root, args, { usersApi }: any) {
+        const result = await usersApi.checkUser(args.username, args.password);
 
         return result;
       },
@@ -76,6 +106,19 @@ const nesutoMutations = new GraphQLObjectType({
         return result;
       },
     },
+    addUser: {
+      type: GraphQLNonNull(User),
+      args: {
+        input: {
+          type: GraphQLNonNull(addUser),
+        },
+      },
+      async resolve(root, { input }, { usersApi }: any) {
+        const result = await usersApi.addUser(input.username, input.password);
+
+        return result;
+      },
+    }
   },
 });
 

@@ -12,6 +12,7 @@
   "dependencies": {
     "apollo-datasource-mongodb": "^0.2.8",
     "apollo-server-express": "^2.19.0",
+    "bcrypt": "^5.0.0",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
     "mongodb": "^3.6.3"
@@ -22,6 +23,7 @@
     "@graphql-codegen/typescript": "1.17.11",
     "@graphql-codegen/typescript-operations": "1.17.10",
     "@graphql-codegen/typescript-resolvers": "1.17.11",
+    "@types/bcrypt": "^3.0.0",
     "@types/node": "^14.14.9",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",

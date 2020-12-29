@@ -14,6 +14,7 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   apartments?: Maybe<Array<Maybe<Apartment>>>;
+  user?: Maybe<User>;
 };
 
 export type Apartment = {
@@ -23,9 +24,18 @@ export type Apartment = {
   description: Scalars['String'];
 };
 
+export type User = {
+  __typename?: 'User';
+  _id?: Maybe<Scalars['ID']>;
+  username: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addApartment: Apartment;
+  removeApartment: Apartment;
+  addUser: User;
 };
 
 
@@ -33,9 +43,28 @@ export type MutationAddApartmentArgs = {
   input: AddApartment;
 };
 
+
+export type MutationRemoveApartmentArgs = {
+  input: RemoveApartment;
+};
+
+
+export type MutationAddUserArgs = {
+  input: AddUser;
+};
+
 export type AddApartment = {
   title: Scalars['String'];
   description: Scalars['String'];
+};
+
+export type RemoveApartment = {
+  _id: Scalars['String'];
+};
+
+export type AddUser = {
+  username: Scalars['String'];
+  password: Scalars['String'];
 };
 
 
@@ -120,8 +149,11 @@ export type ResolversTypes = {
   Apartment: ResolverTypeWrapper<Apartment>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  User: ResolverTypeWrapper<User>;
   Mutation: ResolverTypeWrapper<{}>;
   addApartment: AddApartment;
+  removeApartment: RemoveApartment;
+  addUser: AddUser;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
@@ -131,13 +163,17 @@ export type ResolversParentTypes = {
   Apartment: Apartment;
   ID: Scalars['ID'];
   String: Scalars['String'];
+  User: User;
   Mutation: {};
   addApartment: AddApartment;
+  removeApartment: RemoveApartment;
+  addUser: AddUser;
   Boolean: Scalars['Boolean'];
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   apartments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Apartment']>>>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
 export type ApartmentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Apartment'] = ResolversParentTypes['Apartment']> = {
@@ -147,13 +183,23 @@ export type ApartmentResolvers<ContextType = any, ParentType extends ResolversPa
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addApartment?: Resolver<ResolversTypes['Apartment'], ParentType, ContextType, RequireFields<MutationAddApartmentArgs, 'input'>>;
+  removeApartment?: Resolver<ResolversTypes['Apartment'], ParentType, ContextType, RequireFields<MutationRemoveApartmentArgs, 'input'>>;
+  addUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'input'>>;
 };
 
 export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   Apartment?: ApartmentResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 };
 

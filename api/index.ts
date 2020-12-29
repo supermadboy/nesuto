@@ -3,6 +3,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { MongoClient } from 'mongodb';
 import Apartments from './src/data-sources/Apartments';
 import schema from './src/schema/schema';
+import Users from './src/data-sources/Users';
 
 const client = new MongoClient('mongodb://root:root@localhost:27017?authMechanism=DEFAULT');
 
@@ -13,8 +14,10 @@ const server = new ApolloServer({
   schema,
   context: () => ({
     apartmentsApi: new Apartments(client.db('nesuto').collection('apartments')),
+    usersApi: new Users(client.db('nesuto').collection('users')),
   }),
 });
+
 const app = express();
 server.applyMiddleware({ app });
 
