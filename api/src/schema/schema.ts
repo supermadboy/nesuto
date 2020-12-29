@@ -29,7 +29,7 @@ const addApartment = new GraphQLInputObjectType({
 const removeApartment = new GraphQLInputObjectType({
   name: 'removeApartment',
   fields: {
-    _id: { type: GraphQLNonNull(GraphQLID) },
+    _id: { type: GraphQLNonNull(GraphQLString) },
   },
 });
 

@@ -8,6 +8,7 @@ export interface ApartmentsData {
 export const APARTMENTS = gql`
   {
     apartments {
+      _id
       title
       description
     }
@@ -27,7 +28,7 @@ export const ADD_APARTMENT = gql`
 export const REMOVE_APARTMENT = gql`
   mutation removeApartment($_id: String!) {
     removeApartment(input: {_id: $_id}) {
-      result
+      _id
     }
   }
 `;
