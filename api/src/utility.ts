@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { LoginExpired, GeneralError } from './error';
+import { ValidJwtToken } from './generated/graphql';
 
-const verifyJWTToken = (token: string) => {
+const verifyJWTToken = (token: string): ValidJwtToken => {
   let decoded;
 
   const secret = process.env.JWT_TOKEN;
@@ -11,7 +12,7 @@ const verifyJWTToken = (token: string) => {
   }
 
   try {
-    decoded = jwt.verify(token, secret);
+    decoded = jwt.verify(token, secret) as ValidJwtToken;
   } catch (err) {
     if (err.name === jwt.TokenExpiredError.name) {
       throw new LoginExpired();
@@ -20,7 +21,10 @@ const verifyJWTToken = (token: string) => {
     }
   }
 
-  return decoded;
+  return {
+    isLoggedIn: decoded.isLoggedIn,
+    token,
+  };
 };
 
 export default verifyJWTToken;

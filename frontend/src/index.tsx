@@ -12,20 +12,16 @@ import Home from './components/Home';
 import Admin from './components/Admin';
 import reportWebVitals from './reportWebVitals';
 import client from './utility/apolloClient';
+import Login from './components/Admin/Login';
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Router>
       <Switch>
-        <Route path="/admin">
-          <Admin />
-        </Route>
-        <Route path="/adverts">
-          <Adverts />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
+        <Route path="/admin/login" component={Login} />
+        <Route path="/admin" component={Admin} />
+        <Route path="/adverts" component={Adverts} />
+        <Route path="/" component={Home} />
       </Switch>
     </Router>
   </ApolloProvider>,

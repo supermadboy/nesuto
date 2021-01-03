@@ -4,6 +4,6 @@ export interface Apartment {
   description: string,
 }
 
-export interface User {
-  name: string
+export interface UserLogin {
+  username: string,
 }

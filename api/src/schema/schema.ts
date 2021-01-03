@@ -1,4 +1,5 @@
 import {
+  GraphQLBoolean,
   GraphQLID,
   GraphQLInputObjectType,
   GraphQLList,
@@ -11,6 +12,14 @@ import jwt from 'jsonwebtoken';
 import Apartments from '../data-sources/Apartments';
 import { GeneralError, NotLoggedIn } from '../error';
 import verifyJWTToken from '../utility';
+
+const ValidJWTToken = new GraphQLObjectType({
+  name: 'ValidJWTToken',
+  fields: {
+    token: { type: GraphQLNonNull(GraphQLString) },
+    isLoggedIn: { type: GraphQLNonNull(GraphQLBoolean) },
+  },
+});
 
 const Apartment = new GraphQLObjectType({
   name: 'Apartment',
@@ -56,6 +65,14 @@ const addUser = new GraphQLInputObjectType({
 const nesutoQueries = new GraphQLObjectType({
   name: 'Query',
   fields: {
+    verify: {
+      type: ValidJWTToken,
+      async resolve(root, args, { usersApi, req }: any) {
+        const result = await usersApi.validateJwtToken(req.signedCookies.token);
+
+        return result;
+      },
+    },
     apartments: {
       type: GraphQLList(Apartment),
       async resolve(root, args, { apartmentsApi }: {apartmentsApi: Apartments, res: any}) {
@@ -64,14 +81,14 @@ const nesutoQueries = new GraphQLObjectType({
         return result;
       },
     },
-    user: {
+    login: {
       type: User,
       args: {
         username: { type: GraphQLString },
         password: { type: GraphQLString },
       },
       async resolve(root, args, { usersApi, res }: any) {
-        const result = await usersApi.checkUser(args.username, args.password);
+        const result = await usersApi.loginUser(args.username, args.password);
 
         const secret = process.env.JWT_TOKEN;
 
@@ -80,7 +97,7 @@ const nesutoQueries = new GraphQLObjectType({
         }
 
         const token = jwt.sign({
-          loggedIn: true,
+          isLoggedIn: true,
         }, secret);
 
         res.cookie('token', token, {

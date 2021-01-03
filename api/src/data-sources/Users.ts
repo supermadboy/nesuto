@@ -1,10 +1,11 @@
 import { MongoDataSource } from 'apollo-datasource-mongodb';
 import bcrypt from 'bcrypt';
-import { User } from '../generated/graphql';
+import { User, ValidJwtToken } from '../generated/graphql';
 import { NoAuthentication } from '../error';
+import verifyJWTToken from '../utility';
 
 export default class Users extends MongoDataSource<User> {
-  async checkUser(username: string, password: string) {
+  async loginUser(username: string, password: string) {
     const user = await this.collection.findOne({ username });
 
     if (!user) {
@@ -17,7 +18,15 @@ export default class Users extends MongoDataSource<User> {
       throw new NoAuthentication();
     }
 
-    return user;
+    return {
+      username: user.username,
+    };
+  }
+
+  validateJwtToken = (jwtToken: string): ValidJwtToken => {
+    const decoded = verifyJWTToken(jwtToken);
+
+    return decoded;
   }
 
   async addUser(username: string, password: string) {

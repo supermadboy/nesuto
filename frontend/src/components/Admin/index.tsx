@@ -1,54 +1,43 @@
-import { useMutation } from '@apollo/client';
-import React, { useState } from 'react';
-import { ADD_APARTMENT } from '../../graphql/queries/apartments';
-import { Apartment } from '../../utility/types';
+import React, { useEffect, useState } from 'react';
+import { Switch, useRouteMatch } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import AddAppartment from './AddAppartment';
+import ProtectedRoute from '../ProtectedRoute';
+import { VERIFY } from '../../graphql/queries/user';
 
 const Admin = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const { path } = useRouteMatch();
+  const { error, data, loading } = useQuery<any>(VERIFY);
+  const [signedIn, setSignedIn] = useState<boolean|undefined>(undefined);
 
-  const [addApartment, { error, data }] = useMutation<
-    { apartment: Apartment },
-    { title: string, description: string }
-  >(ADD_APARTMENT, {
-    variables: { title, description },
-  });
+  useEffect(() => {
+    if (data?.verify.isLoggedIn) {
+      setSignedIn(true);
+      return;
+    }
+
+    if (error) {
+      setSignedIn(false);
+    }
+  }, [data, error]);
+
+  if (loading || signedIn === undefined) {
+    return (
+      <p>loading</p>
+    );
+  }
 
   return (
     <div>
-      {error ? (
-        <p>
-          Oh no!
-          {' '}
-          {error.message}
-        </p>
-      ) : null}
-      {data && data.apartment ? <p>Saved!</p> : null}
-      <form>
-        <p>
-          <label htmlFor="titleInput">
-            Model
-            <input
-              id="titleInput"
-              name="title"
-              onChange={(e: any) => setTitle(e.target.value)}
-            />
-          </label>
-        </p>
-        <p>
-          <label htmlFor="descriptionInput">
-            Year
-            <input
-              id="descriptionInput"
-              name="description"
-              onChange={(e: any) => setDescription(e.target.value)}
-            />
-          </label>
-        </p>
-        <button type="button" onClick={() => title && description && addApartment()}>
-          Add
-        </button>
-      </form>
+      <p>
+        { error?.message }
+        { signedIn }
+        admin pagina
+      </p>
+
+      <Switch>
+        <ProtectedRoute path={`${path}/add`} isSignedIn={signedIn} component={AddAppartment} />
+      </Switch>
     </div>
   );
 };

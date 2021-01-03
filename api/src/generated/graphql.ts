@@ -13,8 +13,21 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
+  verify?: Maybe<ValidJwtToken>;
   apartments?: Maybe<Array<Maybe<Apartment>>>;
-  user?: Maybe<User>;
+  login?: Maybe<User>;
+};
+
+
+export type QueryLoginArgs = {
+  username?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+};
+
+export type ValidJwtToken = {
+  __typename?: 'ValidJWTToken';
+  token: Scalars['String'];
+  isLoggedIn: Scalars['Boolean'];
 };
 
 export type Apartment = {
@@ -146,34 +159,43 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  ValidJWTToken: ResolverTypeWrapper<ValidJwtToken>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Apartment: ResolverTypeWrapper<Apartment>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   User: ResolverTypeWrapper<User>;
   Mutation: ResolverTypeWrapper<{}>;
   addApartment: AddApartment;
   removeApartment: RemoveApartment;
   addUser: AddUser;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {};
+  String: Scalars['String'];
+  ValidJWTToken: ValidJwtToken;
+  Boolean: Scalars['Boolean'];
   Apartment: Apartment;
   ID: Scalars['ID'];
-  String: Scalars['String'];
   User: User;
   Mutation: {};
   addApartment: AddApartment;
   removeApartment: RemoveApartment;
   addUser: AddUser;
-  Boolean: Scalars['Boolean'];
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  verify?: Resolver<Maybe<ResolversTypes['ValidJWTToken']>, ParentType, ContextType>;
   apartments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Apartment']>>>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  login?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryLoginArgs, never>>;
+};
+
+export type ValidJwtTokenResolvers<ContextType = any, ParentType extends ResolversParentTypes['ValidJWTToken'] = ResolversParentTypes['ValidJWTToken']> = {
+  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isLoggedIn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ApartmentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Apartment'] = ResolversParentTypes['Apartment']> = {
@@ -198,6 +220,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
+  ValidJWTToken?: ValidJwtTokenResolvers<ContextType>;
   Apartment?: ApartmentResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
