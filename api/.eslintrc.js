@@ -23,6 +23,14 @@ module.exports = {
     },
   },
   rules: {
+    'no-underscore-dangle': 'off',
+    'max-classes-per-file': 'off',
+    'max-len': [
+      'error',
+      {
+        code: 120,
+      },
+    ],
     'import/extensions': [
       'error',
       'ignorePackages',

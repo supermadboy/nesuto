@@ -3,11 +3,22 @@ import { ApolloServer } from 'apollo-server-express';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
 import Apartments from './src/data-sources/Apartments';
 import schema from './src/schema/schema';
 import Users from './src/data-sources/Users';
 
-const client = new MongoClient('mongodb://root:root@localhost:27017?authMechanism=DEFAULT');
+dotenv.config({
+  path: path.join(__dirname, '../.env'),
+});
+
+const mongoCredentials = `${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}`;
+const mongoConnection = `${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`;
+
+const client = new MongoClient(
+  `mongodb://${mongoCredentials}@${mongoConnection}?authMechanism=DEFAULT`,
+);
 
 client.connect();
 // The ApolloServer constructor requires two parameters: your schema
@@ -23,17 +34,23 @@ const server = new ApolloServer({
 });
 
 const corsOptions: cors.CorsOptions = {
-  origin: 'http://localhost:3000',
+  origin: process.env.CORS_ORIGIN,
   credentials: true,
 };
 
 const app = express();
 
-app.use(cookieParser('CookieSecretYes'));
+app.use(cookieParser(process.env.NODE_COOKIE_SECRET));
 
 server.applyMiddleware({
   app,
   cors: corsOptions,
+  path: process.env.GRAPHQL_PATH,
 });
 
-app.listen({ port: 4000 }, () => console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`));
+app.listen(
+  {
+    port: process.env.GRAPHQL_PORT,
+  },
+  () => console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
+);

@@ -9,7 +9,7 @@ import {
 } from 'graphql';
 import jwt from 'jsonwebtoken';
 import Apartments from '../data-sources/Apartments';
-import { NotLoggedIn } from '../error';
+import { GeneralError, NotLoggedIn } from '../error';
 import verifyJWTToken from '../utility';
 
 const Apartment = new GraphQLObjectType({
@@ -58,7 +58,7 @@ const nesutoQueries = new GraphQLObjectType({
   fields: {
     apartments: {
       type: GraphQLList(Apartment),
-      async resolve(root, args, { apartmentsApi, res }: {apartmentsApi: Apartments, res: any}) {
+      async resolve(root, args, { apartmentsApi }: {apartmentsApi: Apartments, res: any}) {
         const result = await apartmentsApi.apartments();
 
         return result;
@@ -73,9 +73,15 @@ const nesutoQueries = new GraphQLObjectType({
       async resolve(root, args, { usersApi, res }: any) {
         const result = await usersApi.checkUser(args.username, args.password);
 
+        const secret = process.env.JWT_TOKEN;
+
+        if (!secret) {
+          throw new GeneralError();
+        }
+
         const token = jwt.sign({
           loggedIn: true,
-        }, 'supersecretjwttoken');
+        }, secret);
 
         res.cookie('token', token, {
           expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 Days

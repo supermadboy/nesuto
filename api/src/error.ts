@@ -1,5 +1,11 @@
 import { ApolloError } from 'apollo-server-express';
 
+export class GeneralError extends ApolloError {
+  constructor() {
+    super('General error occured, check the logs', 'GENERAL_ERROR');
+  }
+}
+
 export class NoAuthentication extends ApolloError {
   constructor() {
     super('Combination wrong!', 'NO_AUTHENTICATION');

@@ -1,12 +1,11 @@
 import { MongoDataSource } from 'apollo-datasource-mongodb';
-import { User } from '../generated/graphql';
 import bcrypt from 'bcrypt';
+import { User } from '../generated/graphql';
 import { NoAuthentication } from '../error';
 
 export default class Users extends MongoDataSource<User> {
-
   async checkUser(username: string, password: string) {
-    const user = await this.collection.findOne({username: username}); 
+    const user = await this.collection.findOne({ username });
 
     if (!user) {
       throw new NoAuthentication();
