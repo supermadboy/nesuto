@@ -1,6 +1,8 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { MongoClient } from 'mongodb';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import Apartments from './src/data-sources/Apartments';
 import schema from './src/schema/schema';
 import Users from './src/data-sources/Users';
@@ -12,14 +14,26 @@ client.connect();
 // definition and your set of resolvers.
 const server = new ApolloServer({
   schema,
-  context: () => ({
+  context: ({ req, res }) => ({
     apartmentsApi: new Apartments(client.db('nesuto').collection('apartments')),
     usersApi: new Users(client.db('nesuto').collection('users')),
+    req,
+    res,
   }),
 });
 
-const app = express();
-server.applyMiddleware({ app });
+const corsOptions: cors.CorsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
 
-app.listen({ port: 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`));
+const app = express();
+
+app.use(cookieParser('CookieSecretYes'));
+
+server.applyMiddleware({
+  app,
+  cors: corsOptions,
+});
+
+app.listen({ port: 4000 }, () => console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`));

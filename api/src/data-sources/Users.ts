@@ -23,8 +23,6 @@ export default class Users extends MongoDataSource<User> {
 
   async addUser(username: string, password: string) {
     const hashedPassword = await bcrypt.hash(password, 10);
-    
-    console.log(hashedPassword);
 
     // @ts-ignore
     const result = await this.collection.insertOne({ username, password: hashedPassword });

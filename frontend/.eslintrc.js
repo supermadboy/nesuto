@@ -22,6 +22,7 @@ module.exports = {
   rules: {
     'no-underscore-dangle': 'off',
     'no-use-before-define': 'off',
+    'max-classes-per-file': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/jsx-filename-extension': [
       2,
