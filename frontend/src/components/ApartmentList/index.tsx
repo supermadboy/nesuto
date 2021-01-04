@@ -1,25 +1,35 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import React from 'react';
-import { REMOVE_APARTMENT } from '../../graphql/queries/apartments';
+import { APARTMENTS, ApartmentsData, REMOVE_APARTMENT } from '../../graphql/queries/apartments';
 import { Apartment } from '../../utility/types';
 
-const ApartmentList = (props: { apartments: Apartment[]}) => {
-  const { apartments } = props;
-
+const ApartmentList = ({ admin = false }) => {
   const [removeApartment] = useMutation<
     { apartment: Apartment },
     { _id: string }
   >(REMOVE_APARTMENT);
+  const { loading, error, data } = useQuery<ApartmentsData>(APARTMENTS);
+
+  if (error) return <p>{error}</p>;
+
+  if (loading) return <p>I am loading</p>;
 
   return (
     <div>
-      { apartments.map((apartment) => (
-        <div>
-          <p>{apartment.title}</p>
-          <button type="button" onClick={() => removeApartment({ variables: { _id: apartment._id } })}>delete</button>
-        </div>
-      )) }
+      {
+        data
+        && data.apartments.map((apartment: Apartment) => (
+          <div>
+            <p>{apartment.title}</p>
+            {
+              admin
+              && <button type="button" onClick={() => removeApartment({ variables: { _id: apartment._id } })}>delete</button>
+            }
+          </div>
+        ))
+      }
     </div>
   );
 };
+
 export default ApartmentList;

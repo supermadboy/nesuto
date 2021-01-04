@@ -7,6 +7,8 @@ import {
   Switch,
 } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
 import Adverts from './components/Adverts';
 import Home from './components/Home';
 import Admin from './components/Admin';
@@ -14,16 +16,42 @@ import reportWebVitals from './reportWebVitals';
 import client from './utility/apolloClient';
 import Login from './components/Admin/Login';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#3ff9b0',
+    },
+    secondary: {
+      main: '#f3a',
+    },
+  },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        html: {
+          height: '100%',
+        },
+        body: {
+          height: '100%',
+        },
+      },
+    },
+  },
+});
+
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Router>
-      <Switch>
-        <Route path="/admin/login" component={Login} />
-        <Route path="/admin" component={Admin} />
-        <Route path="/adverts" component={Adverts} />
-        <Route path="/" component={Home} />
-      </Switch>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Switch>
+          <Route path="/admin/login" component={Login} />
+          <Route path="/admin" component={Admin} />
+          <Route path="/adverts" component={Adverts} />
+          <Route path="/" component={Home} />
+        </Switch>
+      </Router>
+    </ThemeProvider>
   </ApolloProvider>,
   document.getElementById('root'),
 );

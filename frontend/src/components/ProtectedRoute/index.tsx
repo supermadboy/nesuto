@@ -14,8 +14,6 @@ interface PrivateRouteProps extends RouteProps {
 const ProtectedRoute = (props: PrivateRouteProps) => {
   const { component: Component, isSignedIn, ...rest } = props;
 
-  console.log(isSignedIn);
-
   return (
     <Route
       /* eslint-disable react/jsx-props-no-spreading */
