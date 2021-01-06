@@ -68,14 +68,14 @@ const AddAppartment = () => {
     name: 'hashtags',
   });
 
-  const [addApartment, { error, data }] = useMutation<
+  const [addApartment, { error }] = useMutation<
     { addApartment: Apartment },
     { input: Apartment }
   >(ADD_APARTMENT);
 
-  const onSubmit = handleSubmit((datas) => {
+  const onSubmit = handleSubmit((submittedData) => {
     addApartment({
-      variables: { input: datas },
+      variables: { input: submittedData },
     });
   });
 
@@ -88,7 +88,6 @@ const AddAppartment = () => {
           {error.message}
         </p>
       ) : null}
-      {data && data.addApartment ? <p>Saved!</p> : null}
       <form onSubmit={onSubmit}>
 
         <Button
