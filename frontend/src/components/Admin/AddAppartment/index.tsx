@@ -13,33 +13,12 @@ import {
 import React, { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { ADD_APARTMENT } from '../../../graphql/queries/apartments';
-import { Apartment } from '../../../utility/types';
-
-interface PaymentType {
-  buy: boolean;
-  rent: boolean;
-}
-
-interface Hashtags {
-  garden: boolean;
-  balcony: boolean;
-  terrace: boolean;
-  garage: boolean;
-  kitchen: boolean;
-  furnished: boolean;
-}
+import { Apartment, PaymentType, Hashtags } from '../../../utility/types';
 
 const AddAppartment = () => {
   const {
     register, handleSubmit, setValue, errors, control,
-  } = useForm<{
-    title: string;
-    description: string;
-    price: number;
-    numberOfRooms: number;
-    paymentType: PaymentType;
-    hashtags: Hashtags;
-  }>({
+  } = useForm<Apartment>({
     defaultValues: {
       title: '',
       description: '',
@@ -91,12 +70,12 @@ const AddAppartment = () => {
 
   const [addApartment, { error, data }] = useMutation<
     { addApartment: Apartment },
-    { title: string, description: string }
+    { input: Apartment }
   >(ADD_APARTMENT);
 
   const onSubmit = handleSubmit((datas) => {
     addApartment({
-      variables: datas,
+      variables: { input: datas },
     });
   });
 
@@ -155,7 +134,7 @@ const AddAppartment = () => {
               label="Price"
               id="price"
               type="number"
-              onChange={(e: any) => setValue('price', e.target.value)}
+              onChange={(e: any) => setValue('price', parseInt(e.target.value, 10))}
               error={Boolean(errors?.price)}
               helperText={errors?.price?.message}
             />
@@ -167,7 +146,7 @@ const AddAppartment = () => {
               label="Number of rooms"
               id="numberOfRooms"
               type="number"
-              onChange={(e: any) => setValue('numberOfRooms', e.target.value)}
+              onChange={(e: any) => setValue('numberOfRooms', parseInt(e.target.value, 10))}
               error={Boolean(errors?.numberOfRooms)}
               helperText={errors?.numberOfRooms?.message}
             />

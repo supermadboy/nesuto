@@ -29,11 +29,11 @@ export default class Users extends MongoDataSource<User> {
     return decoded;
   }
 
-  async addUser(username: string, password: string) {
-    const hashedPassword = await bcrypt.hash(password, 10);
+  async addUser(user: User) {
+    const hashedPassword = await bcrypt.hash(user.password, 10);
 
     // @ts-ignore
-    const result = await this.collection.insertOne({ username, password: hashedPassword });
+    const result = await this.collection.insertOne({ username: user.username, password: hashedPassword });
 
     return result.ops[0];
   }

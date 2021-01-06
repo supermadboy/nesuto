@@ -1,7 +1,4 @@
 import {
-  GraphQLBoolean,
-  GraphQLID,
-  GraphQLInputObjectType,
   GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
@@ -12,55 +9,8 @@ import jwt from 'jsonwebtoken';
 import Apartments from '../data-sources/Apartments';
 import { GeneralError, NotLoggedIn } from '../error';
 import verifyJWTToken from '../utility';
-
-const ValidJWTToken = new GraphQLObjectType({
-  name: 'ValidJWTToken',
-  fields: {
-    token: { type: GraphQLNonNull(GraphQLString) },
-    isLoggedIn: { type: GraphQLNonNull(GraphQLBoolean) },
-  },
-});
-
-const Apartment = new GraphQLObjectType({
-  name: 'Apartment',
-  fields: {
-    _id: { type: GraphQLID },
-    title: { type: GraphQLNonNull(GraphQLString) },
-    description: { type: GraphQLNonNull(GraphQLString) },
-  },
-});
-
-const User = new GraphQLObjectType({
-  name: 'User',
-  fields: {
-    _id: { type: GraphQLID },
-    username: { type: GraphQLNonNull(GraphQLString) },
-    password: { type: GraphQLNonNull(GraphQLString) },
-  },
-});
-
-const addApartment = new GraphQLInputObjectType({
-  name: 'addApartment',
-  fields: {
-    title: { type: GraphQLNonNull(GraphQLString) },
-    description: { type: GraphQLNonNull(GraphQLString) },
-  },
-});
-
-const removeApartment = new GraphQLInputObjectType({
-  name: 'removeApartment',
-  fields: {
-    _id: { type: GraphQLNonNull(GraphQLString) },
-  },
-});
-
-const addUser = new GraphQLInputObjectType({
-  name: 'addUser',
-  fields: {
-    username: { type: GraphQLNonNull(GraphQLString) },
-    password: { type: GraphQLNonNull(GraphQLString) },
-  },
-});
+import { addApartment, Apartment, removeApartment } from './apartment';
+import { addUser, User, ValidJWTToken } from './user';
 
 const nesutoQueries = new GraphQLObjectType({
   name: 'Query',
@@ -130,7 +80,7 @@ const nesutoMutations = new GraphQLObjectType({
 
         verifyJWTToken(req.signedCookies.token);
 
-        const result = await apartmentsApi.addApartment(input.title, input.description);
+        const result = await apartmentsApi.addApartment(input);
 
         return result;
       },
@@ -168,7 +118,7 @@ const nesutoMutations = new GraphQLObjectType({
 
         verifyJWTToken(req.signedCookies.token);
 
-        const result = await usersApi.addUser(input.username, input.password);
+        const result = await usersApi.addUser(input);
 
         return result;
       },

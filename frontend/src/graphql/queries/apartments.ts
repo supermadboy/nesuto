@@ -16,8 +16,8 @@ export const APARTMENTS = gql`
 `;
 
 export const ADD_APARTMENT = gql`
-  mutation addApartment($title: String!, $description: String!) {
-    addApartment(input: { title: $title, description: $description }) {
+  mutation addApartment($input: addApartment!) {
+    addApartment(input: $input) {
       _id
       title
       description

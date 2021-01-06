@@ -35,6 +35,15 @@ export type Apartment = {
   _id?: Maybe<Scalars['ID']>;
   title: Scalars['String'];
   description: Scalars['String'];
+  price: Scalars['Int'];
+  numberOfRooms: Scalars['Int'];
+  paymentType?: Maybe<PaymentType>;
+};
+
+export type PaymentType = {
+  __typename?: 'paymentType';
+  pay: Scalars['Boolean'];
+  rent: Scalars['Boolean'];
 };
 
 export type User = {
@@ -164,6 +173,8 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Apartment: ResolverTypeWrapper<Apartment>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  paymentType: ResolverTypeWrapper<PaymentType>;
   User: ResolverTypeWrapper<User>;
   Mutation: ResolverTypeWrapper<{}>;
   addApartment: AddApartment;
@@ -179,6 +190,8 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   Apartment: Apartment;
   ID: Scalars['ID'];
+  Int: Scalars['Int'];
+  paymentType: PaymentType;
   User: User;
   Mutation: {};
   addApartment: AddApartment;
@@ -202,6 +215,15 @@ export type ApartmentResolvers<ContextType = any, ParentType extends ResolversPa
   _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  numberOfRooms?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  paymentType?: Resolver<Maybe<ResolversTypes['paymentType']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PaymentTypeResolvers<ContextType = any, ParentType extends ResolversParentTypes['paymentType'] = ResolversParentTypes['paymentType']> = {
+  pay?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  rent?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -222,6 +244,7 @@ export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   ValidJWTToken?: ValidJwtTokenResolvers<ContextType>;
   Apartment?: ApartmentResolvers<ContextType>;
+  paymentType?: PaymentTypeResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 };
