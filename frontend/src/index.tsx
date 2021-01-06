@@ -45,8 +45,8 @@ ReactDOM.render(
       <CssBaseline />
       <Router>
         <Switch>
-          <Route path="/admin/login" component={Login} />
-          <Route path="/admin" component={Admin} />
+          <Route path={`${process.env.REACT_APP_ADMIN_ROUTE}/login`} component={Login} />
+          <Route path={`${process.env.REACT_APP_ADMIN_ROUTE}`} component={Admin} />
           <Route path="/adverts" component={Adverts} />
           <Route path="/" component={Home} />
         </Switch>

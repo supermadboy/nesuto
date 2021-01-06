@@ -23,7 +23,7 @@ const ProtectedRoute = (props: PrivateRouteProps) => {
       ) : (
         <Redirect
           to={{
-            pathname: '/admin/login',
+            pathname: `${process.env.REACT_APP_ADMIN_ROUTE}/login`,
             state: { from: routeProps.location },
           }}
         />

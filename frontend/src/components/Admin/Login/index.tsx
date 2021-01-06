@@ -1,7 +1,7 @@
 import { useLazyQuery } from '@apollo/client';
 import {
   Button,
-  Card, createStyles, FormControl, Input, InputLabel, makeStyles, Theme, Typography,
+  Card, createStyles, makeStyles, TextField, Theme, Typography,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -52,7 +52,7 @@ const Login = () => {
 
   useEffect(() => {
     if (data?.login) {
-      history.push('/admin');
+      history.push(process.env.REACT_APP_ADMIN_ROUTE as string);
     }
   }, [data]);
 
@@ -83,24 +83,21 @@ const Login = () => {
             </Typography>
             )
           }
-          <FormControl className={classes.formInput}>
-            <InputLabel htmlFor="username">Username</InputLabel>
-            <Input
-              id="username"
-              value={username}
-              onChange={(e: any) => setUsername(e.target.value)}
-            />
-          </FormControl>
 
-          <FormControl className={classes.formInput}>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              id="password"
-              value={password}
-              onChange={(e: any) => setPassword(e.target.value)}
-              type="password"
-            />
-          </FormControl>
+          <TextField
+            label="Username"
+            id="username"
+            value={username}
+            onChange={(e: any) => setUsername(e.target.value)}
+          />
+
+          <TextField
+            label="Password"
+            id="password"
+            value={password}
+            onChange={(e: any) => setPassword(e.target.value)}
+            type="password"
+          />
 
           <Button
             variant="contained"
