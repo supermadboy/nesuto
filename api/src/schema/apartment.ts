@@ -1,8 +1,10 @@
+import { GraphQLUpload } from 'apollo-server-express';
 import {
   GraphQLBoolean,
   GraphQLID,
   GraphQLInputObjectType,
   GraphQLInt,
+  GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
@@ -48,6 +50,23 @@ const HashtagsInput = new GraphQLInputObjectType({
   },
 });
 
+export const ApartmentPicture = new GraphQLObjectType({
+  name: 'ApartmentPicture',
+  fields: {
+    _id: { type: GraphQLID },
+    apartmentId: { type: GraphQLNonNull(GraphQLID) },
+    order: { type: GraphQLNonNull(GraphQLInt) },
+    chunk: { type: GraphQLNonNull(GraphQLString) },
+  },
+});
+
+export const ApartmentPictureInput = new GraphQLInputObjectType({
+  name: 'ApartmentPictureInput',
+  fields: {
+    name: { type: GraphQLNonNull(GraphQLString) },
+  },
+});
+
 export const Apartment = new GraphQLObjectType({
   name: 'Apartment',
   fields: {
@@ -70,6 +89,7 @@ export const addApartment = new GraphQLInputObjectType({
     numberOfRooms: { type: GraphQLNonNull(GraphQLInt) },
     paymentType: { type: PaymentTypeInput },
     hashtags: { type: HashtagsInput },
+    apartmentPictures: { type: new GraphQLList(GraphQLUpload!) },
   },
 });
 

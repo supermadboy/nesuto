@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
@@ -9,6 +9,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The `Upload` scalar type represents a file upload. */
+  Upload: any;
 };
 
 export type Query = {
@@ -38,12 +40,23 @@ export type Apartment = {
   price: Scalars['Int'];
   numberOfRooms: Scalars['Int'];
   paymentType?: Maybe<PaymentType>;
+  hashtags?: Maybe<Hashtags>;
 };
 
 export type PaymentType = {
-  __typename?: 'paymentType';
-  pay: Scalars['Boolean'];
+  __typename?: 'PaymentType';
+  buy: Scalars['Boolean'];
   rent: Scalars['Boolean'];
+};
+
+export type Hashtags = {
+  __typename?: 'Hashtags';
+  garage: Scalars['Boolean'];
+  furnished: Scalars['Boolean'];
+  kitchen: Scalars['Boolean'];
+  terrace: Scalars['Boolean'];
+  garden: Scalars['Boolean'];
+  balcony: Scalars['Boolean'];
 };
 
 export type User = {
@@ -78,7 +91,27 @@ export type MutationAddUserArgs = {
 export type AddApartment = {
   title: Scalars['String'];
   description: Scalars['String'];
+  price: Scalars['Int'];
+  numberOfRooms: Scalars['Int'];
+  paymentType?: Maybe<PaymentTypeInput>;
+  hashtags?: Maybe<HashtagsInput>;
+  apartmentPictures?: Maybe<Array<Maybe<Scalars['Upload']>>>;
 };
+
+export type PaymentTypeInput = {
+  buy: Scalars['Boolean'];
+  rent: Scalars['Boolean'];
+};
+
+export type HashtagsInput = {
+  garage: Scalars['Boolean'];
+  furnished: Scalars['Boolean'];
+  kitchen: Scalars['Boolean'];
+  terrace: Scalars['Boolean'];
+  garden: Scalars['Boolean'];
+  balcony: Scalars['Boolean'];
+};
+
 
 export type RemoveApartment = {
   _id: Scalars['String'];
@@ -174,10 +207,14 @@ export type ResolversTypes = {
   Apartment: ResolverTypeWrapper<Apartment>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  paymentType: ResolverTypeWrapper<PaymentType>;
+  PaymentType: ResolverTypeWrapper<PaymentType>;
+  Hashtags: ResolverTypeWrapper<Hashtags>;
   User: ResolverTypeWrapper<User>;
   Mutation: ResolverTypeWrapper<{}>;
   addApartment: AddApartment;
+  PaymentTypeInput: PaymentTypeInput;
+  HashtagsInput: HashtagsInput;
+  Upload: ResolverTypeWrapper<Scalars['Upload']>;
   removeApartment: RemoveApartment;
   addUser: AddUser;
 };
@@ -191,10 +228,14 @@ export type ResolversParentTypes = {
   Apartment: Apartment;
   ID: Scalars['ID'];
   Int: Scalars['Int'];
-  paymentType: PaymentType;
+  PaymentType: PaymentType;
+  Hashtags: Hashtags;
   User: User;
   Mutation: {};
   addApartment: AddApartment;
+  PaymentTypeInput: PaymentTypeInput;
+  HashtagsInput: HashtagsInput;
+  Upload: Scalars['Upload'];
   removeApartment: RemoveApartment;
   addUser: AddUser;
 };
@@ -217,13 +258,24 @@ export type ApartmentResolvers<ContextType = any, ParentType extends ResolversPa
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   numberOfRooms?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  paymentType?: Resolver<Maybe<ResolversTypes['paymentType']>, ParentType, ContextType>;
+  paymentType?: Resolver<Maybe<ResolversTypes['PaymentType']>, ParentType, ContextType>;
+  hashtags?: Resolver<Maybe<ResolversTypes['Hashtags']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type PaymentTypeResolvers<ContextType = any, ParentType extends ResolversParentTypes['paymentType'] = ResolversParentTypes['paymentType']> = {
-  pay?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+export type PaymentTypeResolvers<ContextType = any, ParentType extends ResolversParentTypes['PaymentType'] = ResolversParentTypes['PaymentType']> = {
+  buy?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   rent?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HashtagsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Hashtags'] = ResolversParentTypes['Hashtags']> = {
+  garage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  furnished?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  kitchen?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  terrace?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  garden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  balcony?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -240,13 +292,19 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   addUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'input'>>;
 };
 
+export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
+  name: 'Upload';
+}
+
 export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   ValidJWTToken?: ValidJwtTokenResolvers<ContextType>;
   Apartment?: ApartmentResolvers<ContextType>;
-  paymentType?: PaymentTypeResolvers<ContextType>;
+  PaymentType?: PaymentTypeResolvers<ContextType>;
+  Hashtags?: HashtagsResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Upload?: GraphQLScalarType;
 };
 
 

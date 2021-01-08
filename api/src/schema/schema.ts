@@ -7,6 +7,7 @@ import {
 } from 'graphql';
 import jwt from 'jsonwebtoken';
 import Apartments from '../data-sources/Apartments';
+import ApartmentPictures, { SubmittedApartmentPicture } from '../data-sources/ApartmentPicture';
 import { GeneralError, NotLoggedIn } from '../error';
 import verifyJWTToken from '../utility';
 import { addApartment, Apartment, removeApartment } from './apartment';
@@ -73,14 +74,27 @@ const nesutoMutations = new GraphQLObjectType({
           type: GraphQLNonNull(addApartment),
         },
       },
-      async resolve(root, { input }, { apartmentsApi, req }: {apartmentsApi: Apartments, req: any}) {
+      async resolve(root, { input }, { apartmentsApi, req, apartmentPicturesApi }:
+        {apartmentsApi: Apartments, req: any, apartmentPicturesApi: ApartmentPictures}) {
         if (!req.signedCookies.token) {
           throw new NotLoggedIn();
         }
 
+        const { apartmentPictures } = input;
+
         verifyJWTToken(req.signedCookies.token);
 
         const result = await apartmentsApi.addApartment(input);
+
+        await Promise.all(apartmentPictures).then((resolvedPictures: any) => {
+          resolvedPictures.forEach((picture: SubmittedApartmentPicture, index: number) => {
+            apartmentPicturesApi.addApartmentPicture({
+              ...picture,
+              apartmentId: result._id as any,
+              order: index,
+            });
+          });
+        });
 
         return result;
       },

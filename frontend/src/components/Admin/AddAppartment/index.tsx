@@ -36,6 +36,7 @@ const AddAppartment = () => {
         kitchen: false,
         furnished: false,
       },
+      apartmentPictures: [],
     },
   });
 
@@ -56,6 +57,7 @@ const AddAppartment = () => {
       validate: (value) => value.rent || value.buy || 'Select at least one',
     });
     register('hashtags');
+    register('apartmentPictures');
   }, [register]);
 
   const paymentType = useWatch<PaymentType>({
@@ -68,6 +70,11 @@ const AddAppartment = () => {
     name: 'hashtags',
   });
 
+  const apartmentPictures = useWatch<any>({
+    control,
+    name: 'apartmentPictures',
+  });
+
   const [addApartment, { error }] = useMutation<
     { addApartment: Apartment },
     { input: Apartment }
@@ -78,6 +85,10 @@ const AddAppartment = () => {
       variables: { input: submittedData },
     });
   });
+
+  const onFileUpload = (event: any) => {
+    setValue('apartmentPictures', [...apartmentPictures, ...event.target.files]);
+  };
 
   return (
     <div>
@@ -124,7 +135,18 @@ const AddAppartment = () => {
           </Grid>
 
           <Grid item xs={6}>
-            Picture uploader
+            <Button
+              variant="contained"
+              component="label"
+            >
+              Upload File
+              <input
+                type="file"
+                hidden
+                onChange={(e: any) => onFileUpload(e)}
+                multiple
+              />
+            </Button>
           </Grid>
 
           <Grid item xs={3}>

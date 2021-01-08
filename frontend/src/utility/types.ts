@@ -6,6 +6,11 @@ export interface Apartment {
   numberOfRooms: number;
   paymentType: PaymentType;
   hashtags: Hashtags;
+  apartmentPictures: ApartmentPicture[];
+}
+
+export interface ApartmentPicture {
+  name: string;
 }
 
 export interface PaymentType {
