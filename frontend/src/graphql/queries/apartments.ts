@@ -10,7 +10,13 @@ export const APARTMENTS = gql`
     apartments {
       _id
       title
-      description
+      subtitle
+      hashtags
+      paymentType
+      apartmentPictures {
+        fileUrl
+        order
+      }
     }
   }
 `;

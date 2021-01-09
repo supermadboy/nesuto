@@ -1,11 +1,10 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { ObjectId } from 'mongodb';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: ObjectId;
+  ID: string;
   String: string;
   Boolean: boolean;
   Int: number;
@@ -37,29 +36,28 @@ export type Apartment = {
   __typename?: 'Apartment';
   _id?: Maybe<Scalars['ID']>;
   title: Scalars['String'];
+  subtitle: Scalars['String'];
   description: Scalars['String'];
   price: Scalars['Int'];
   numberOfRooms: Scalars['Int'];
-  paymentType?: Maybe<PaymentType>;
-  hashtags?: Maybe<Hashtags>;
+  paymentType?: Maybe<Array<Maybe<PaymentType>>>;
+  hashtags?: Maybe<Array<Maybe<HashtagsType>>>;
   apartmentPictures?: Maybe<Array<Maybe<ApartmentPicture>>>;
 };
 
-export type PaymentType = {
-  __typename?: 'PaymentType';
-  buy: Scalars['Boolean'];
-  rent: Scalars['Boolean'];
-};
+export enum PaymentType {
+  Buy = 'BUY',
+  Rent = 'RENT'
+}
 
-export type Hashtags = {
-  __typename?: 'Hashtags';
-  garage: Scalars['Boolean'];
-  furnished: Scalars['Boolean'];
-  kitchen: Scalars['Boolean'];
-  terrace: Scalars['Boolean'];
-  garden: Scalars['Boolean'];
-  balcony: Scalars['Boolean'];
-};
+export enum HashtagsType {
+  Garage = 'GARAGE',
+  Furnished = 'FURNISHED',
+  Kitchen = 'KITCHEN',
+  Terrace = 'TERRACE',
+  Garden = 'GARDEN',
+  Balcony = 'BALCONY'
+}
 
 export type ApartmentPicture = {
   __typename?: 'ApartmentPicture';
@@ -104,26 +102,13 @@ export type MutationAddUserArgs = {
 
 export type AddApartment = {
   title: Scalars['String'];
+  subtitle: Scalars['String'];
   description: Scalars['String'];
   price: Scalars['Int'];
   numberOfRooms: Scalars['Int'];
-  paymentType?: Maybe<PaymentTypeInput>;
-  hashtags?: Maybe<HashtagsInput>;
+  paymentType?: Maybe<Array<Maybe<PaymentType>>>;
+  hashtags?: Maybe<Array<Maybe<HashtagsType>>>;
   apartmentPictures?: Maybe<Array<Maybe<Scalars['Upload']>>>;
-};
-
-export type PaymentTypeInput = {
-  buy: Scalars['Boolean'];
-  rent: Scalars['Boolean'];
-};
-
-export type HashtagsInput = {
-  garage: Scalars['Boolean'];
-  furnished: Scalars['Boolean'];
-  kitchen: Scalars['Boolean'];
-  terrace: Scalars['Boolean'];
-  garden: Scalars['Boolean'];
-  balcony: Scalars['Boolean'];
 };
 
 
@@ -221,14 +206,12 @@ export type ResolversTypes = {
   Apartment: ResolverTypeWrapper<Apartment>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  PaymentType: ResolverTypeWrapper<PaymentType>;
-  Hashtags: ResolverTypeWrapper<Hashtags>;
+  PaymentType: PaymentType;
+  HashtagsType: HashtagsType;
   ApartmentPicture: ResolverTypeWrapper<ApartmentPicture>;
   User: ResolverTypeWrapper<User>;
   Mutation: ResolverTypeWrapper<{}>;
   addApartment: AddApartment;
-  PaymentTypeInput: PaymentTypeInput;
-  HashtagsInput: HashtagsInput;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   removeApartment: RemoveApartment;
   addUser: AddUser;
@@ -243,14 +226,10 @@ export type ResolversParentTypes = {
   Apartment: Apartment;
   ID: Scalars['ID'];
   Int: Scalars['Int'];
-  PaymentType: PaymentType;
-  Hashtags: Hashtags;
   ApartmentPicture: ApartmentPicture;
   User: User;
   Mutation: {};
   addApartment: AddApartment;
-  PaymentTypeInput: PaymentTypeInput;
-  HashtagsInput: HashtagsInput;
   Upload: Scalars['Upload'];
   removeApartment: RemoveApartment;
   addUser: AddUser;
@@ -271,28 +250,13 @@ export type ValidJwtTokenResolvers<ContextType = any, ParentType extends Resolve
 export type ApartmentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Apartment'] = ResolversParentTypes['Apartment']> = {
   _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  subtitle?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   numberOfRooms?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  paymentType?: Resolver<Maybe<ResolversTypes['PaymentType']>, ParentType, ContextType>;
-  hashtags?: Resolver<Maybe<ResolversTypes['Hashtags']>, ParentType, ContextType>;
+  paymentType?: Resolver<Maybe<Array<Maybe<ResolversTypes['PaymentType']>>>, ParentType, ContextType>;
+  hashtags?: Resolver<Maybe<Array<Maybe<ResolversTypes['HashtagsType']>>>, ParentType, ContextType>;
   apartmentPictures?: Resolver<Maybe<Array<Maybe<ResolversTypes['ApartmentPicture']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type PaymentTypeResolvers<ContextType = any, ParentType extends ResolversParentTypes['PaymentType'] = ResolversParentTypes['PaymentType']> = {
-  buy?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  rent?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type HashtagsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Hashtags'] = ResolversParentTypes['Hashtags']> = {
-  garage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  furnished?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  kitchen?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  terrace?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  garden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  balcony?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -329,8 +293,6 @@ export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   ValidJWTToken?: ValidJwtTokenResolvers<ContextType>;
   Apartment?: ApartmentResolvers<ContextType>;
-  PaymentType?: PaymentTypeResolvers<ContextType>;
-  Hashtags?: HashtagsResolvers<ContextType>;
   ApartmentPicture?: ApartmentPictureResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

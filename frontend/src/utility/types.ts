@@ -1,6 +1,7 @@
 export interface Apartment {
   _id: string;
   title: string;
+  subtitle: string;
   description: string;
   price: number;
   numberOfRooms: number;
@@ -29,4 +30,19 @@ export interface Hashtags {
 
 export interface UserLogin {
   username: string;
+}
+
+/* eslint-disable */
+export enum HashtagsEnum {
+  GARDEN = 'GARDEN',
+  BALCONY = 'BALCONY',
+  TERRACE = 'TERRACE',
+  GARAGE = 'GARAGE',
+  KITCHEN = 'KITCHEN',
+  FURNISHED = 'FURNISHED',
+}
+
+export enum PaymentTypeEnum {
+  BUY = 'BUY',
+  RENT = 'RENT',
 }

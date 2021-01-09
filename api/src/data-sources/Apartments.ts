@@ -7,14 +7,15 @@ export default class Apartments extends MongoDataSource<Apartment> {
     return this.collection.find({}).toArray();
   }
 
-  async addApartment(aparment: Apartment) {
+  async addApartment(apartment: Apartment) {
     // @ts-ignore
-    const result = await this.collection.insertOne(aparment);
+    const result = await this.collection.insertOne(apartment);
 
     return result.ops[0];
   }
 
   async removeApartment(_id: string) {
+    // @ts-ignore
     const result = await this.collection.deleteOne({ _id: new ObjectID(_id) });
 
     return result.result;

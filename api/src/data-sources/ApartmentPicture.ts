@@ -19,6 +19,7 @@ export default class ApartmentPictures extends MongoDataSource<ApartmentPicture>
   }
 
   async apartmentPicturesByApartmentId(apartmentId : ObjectID) {
+    // @ts-ignore
     const result = await this.collection.find({ apartmentId });
 
     const pictures = await result.toArray();
@@ -27,6 +28,7 @@ export default class ApartmentPictures extends MongoDataSource<ApartmentPicture>
   }
 
   async deleteApartmentPicture(apartmentId: string) {
+    // @ts-ignore
     const result = await this.collection.find({ apartmentId: new ObjectID(apartmentId) });
 
     const pictures = await result.toArray();
@@ -38,11 +40,13 @@ export default class ApartmentPictures extends MongoDataSource<ApartmentPicture>
     pictures.forEach((picture) => {
       if (cloudinaryDelete(picture.cloudinaryName)) {
         if (picture._id) {
+          // @ts-ignore
           deletedPictures.push(picture._id);
         }
       }
     });
 
+    // @ts-ignore
     const deleteDBResult = await this.collection.deleteMany({ _id: { $in: deletedPictures } });
 
     return deleteDBResult.result;

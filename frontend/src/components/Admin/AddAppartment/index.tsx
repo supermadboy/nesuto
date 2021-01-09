@@ -17,7 +17,13 @@ import React, { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { Carousel } from 'react-responsive-carousel';
 import { ADD_APARTMENT } from '../../../graphql/queries/apartments';
-import { Apartment, PaymentType, Hashtags } from '../../../utility/types';
+import {
+  Apartment,
+  PaymentType,
+  Hashtags,
+  PaymentTypeEnum,
+  HashtagsEnum,
+} from '../../../utility/types';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const useStyles = makeStyles(() => createStyles({
@@ -39,6 +45,7 @@ const AddAppartment = () => {
   } = useForm<Apartment>({
     defaultValues: {
       title: '',
+      subtitle: '',
       description: '',
       price: 0,
       numberOfRooms: 0,
@@ -60,6 +67,9 @@ const AddAppartment = () => {
 
   useEffect(() => {
     register('title', {
+      validate: (value) => value.length > 0 || 'This is required.',
+    });
+    register('subtitle', {
       validate: (value) => value.length > 0 || 'This is required.',
     });
     register('description', {
@@ -101,8 +111,48 @@ const AddAppartment = () => {
   >(ADD_APARTMENT);
 
   const onSubmit = handleSubmit((submittedData) => {
+    const formData: any = { ...submittedData };
+
+    const paymentTypesList = [];
+    const hashtagsList = [];
+
+    if (submittedData.paymentType.buy) {
+      paymentTypesList.push(PaymentTypeEnum.BUY);
+    }
+
+    if (submittedData.paymentType.rent) {
+      paymentTypesList.push(PaymentTypeEnum.RENT);
+    }
+
+    if (submittedData.hashtags.balcony) {
+      hashtagsList.push(HashtagsEnum.BALCONY);
+    }
+
+    if (submittedData.hashtags.furnished) {
+      hashtagsList.push(HashtagsEnum.FURNISHED);
+    }
+
+    if (submittedData.hashtags.garage) {
+      hashtagsList.push(HashtagsEnum.GARAGE);
+    }
+
+    if (submittedData.hashtags.garden) {
+      hashtagsList.push(HashtagsEnum.GARDEN);
+    }
+
+    if (submittedData.hashtags.kitchen) {
+      hashtagsList.push(HashtagsEnum.KITCHEN);
+    }
+
+    if (submittedData.hashtags.terrace) {
+      hashtagsList.push(HashtagsEnum.TERRACE);
+    }
+
+    formData.paymentType = paymentTypesList;
+    formData.hashtags = hashtagsList;
+
     addApartment({
-      variables: { input: submittedData },
+      variables: { input: formData },
     });
   });
 
@@ -228,6 +278,17 @@ const AddAppartment = () => {
           <Grid item xs={3}>
             <TextField
               required
+              label="Subtitle"
+              id="subtitle"
+              onChange={(e: any) => setValue('subtitle', e.target.value)}
+              error={Boolean(errors?.subtitle)}
+              helperText={errors?.subtitle?.message}
+            />
+          </Grid>
+
+          <Grid item xs={3}>
+            <TextField
+              required
               label="Price"
               id="price"
               type="number"
@@ -249,7 +310,7 @@ const AddAppartment = () => {
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             {/* placeholder */}
           </Grid>
 

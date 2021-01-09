@@ -83,9 +83,12 @@ const nesutoMutations = new GraphQLObjectType({
 
         const { apartmentPictures } = input;
 
+        const apartmentObject = { ...input };
+        delete apartmentObject.apartmentPictures;
+
         verifyJWTToken(req.signedCookies.token);
 
-        const result = await apartmentsApi.addApartment(input);
+        const result = await apartmentsApi.addApartment(apartmentObject);
 
         await Promise.all(apartmentPictures).then((resolvedPictures: any) => {
           resolvedPictures.forEach((picture: SubmittedApartmentPicture, index: number) => {

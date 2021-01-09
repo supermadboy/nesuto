@@ -1,6 +1,7 @@
 import { GraphQLUpload } from 'apollo-server-express';
 import {
   GraphQLBoolean,
+  GraphQLEnumType,
   GraphQLID,
   GraphQLInputObjectType,
   GraphQLInt,
@@ -9,46 +10,25 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql';
-import ApartmentPictures from '../data-sources/ApartmentPicture';
 import { ApartmentPicture } from './apartmentPicture';
 
-const PaymentType = new GraphQLObjectType({
+const Payment = new GraphQLEnumType({
   name: 'PaymentType',
-  fields: {
-    buy: { type: GraphQLNonNull(GraphQLBoolean) },
-    rent: { type: GraphQLNonNull(GraphQLBoolean) },
+  values: {
+    BUY: { value: 'buy' },
+    RENT: { value: 'rent' },
   },
 });
 
-const PaymentTypeInput = new GraphQLInputObjectType({
-  name: 'PaymentTypeInput',
-  fields: {
-    buy: { type: GraphQLNonNull(GraphQLBoolean) },
-    rent: { type: GraphQLNonNull(GraphQLBoolean) },
-  },
-});
-
-const Hashtags = new GraphQLObjectType({
-  name: 'Hashtags',
-  fields: {
-    garage: { type: GraphQLNonNull(GraphQLBoolean) },
-    furnished: { type: GraphQLNonNull(GraphQLBoolean) },
-    kitchen: { type: GraphQLNonNull(GraphQLBoolean) },
-    terrace: { type: GraphQLNonNull(GraphQLBoolean) },
-    garden: { type: GraphQLNonNull(GraphQLBoolean) },
-    balcony: { type: GraphQLNonNull(GraphQLBoolean) },
-  },
-});
-
-const HashtagsInput = new GraphQLInputObjectType({
-  name: 'HashtagsInput',
-  fields: {
-    garage: { type: GraphQLNonNull(GraphQLBoolean) },
-    furnished: { type: GraphQLNonNull(GraphQLBoolean) },
-    kitchen: { type: GraphQLNonNull(GraphQLBoolean) },
-    terrace: { type: GraphQLNonNull(GraphQLBoolean) },
-    garden: { type: GraphQLNonNull(GraphQLBoolean) },
-    balcony: { type: GraphQLNonNull(GraphQLBoolean) },
+const Hashtags = new GraphQLEnumType({
+  name: 'HashtagsType',
+  values: {
+    GARAGE: { value: 'garage' },
+    FURNISHED: { value: 'furnished' },
+    KITCHEN: { value: 'kitchen' },
+    TERRACE: { value: 'terrace' },
+    GARDEN: { value: 'garden' },
+    BALCONY: { value: 'balcony' },
   },
 });
 
@@ -57,11 +37,12 @@ export const Apartment = new GraphQLObjectType({
   fields: {
     _id: { type: GraphQLID },
     title: { type: GraphQLNonNull(GraphQLString) },
+    subtitle: { type: GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLNonNull(GraphQLString) },
     price: { type: GraphQLNonNull(GraphQLInt) },
     numberOfRooms: { type: GraphQLNonNull(GraphQLInt) },
-    paymentType: { type: PaymentType },
-    hashtags: { type: Hashtags },
+    paymentType: { type: GraphQLList(Payment) },
+    hashtags: { type: GraphQLList(Hashtags) },
     apartmentPictures: {
       type: GraphQLList(ApartmentPicture),
       resolve: async (apartment, {}, { apartmentPicturesApi }) => {
@@ -77,11 +58,12 @@ export const addApartment = new GraphQLInputObjectType({
   name: 'addApartment',
   fields: {
     title: { type: GraphQLNonNull(GraphQLString) },
+    subtitle: { type: GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLNonNull(GraphQLString) },
     price: { type: GraphQLNonNull(GraphQLInt) },
     numberOfRooms: { type: GraphQLNonNull(GraphQLInt) },
-    paymentType: { type: PaymentTypeInput },
-    hashtags: { type: HashtagsInput },
+    paymentType: { type: GraphQLList(Payment) },
+    hashtags: { type: GraphQLList(Hashtags) },
     apartmentPictures: { type: new GraphQLList(GraphQLUpload!) },
   },
 });
