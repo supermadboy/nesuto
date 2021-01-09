@@ -12,8 +12,10 @@ import {
 } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
+import { Carousel } from 'react-responsive-carousel';
 import { ADD_APARTMENT } from '../../../graphql/queries/apartments';
 import { Apartment, PaymentType, Hashtags } from '../../../utility/types';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 
 const AddAppartment = () => {
   const {
@@ -87,7 +89,23 @@ const AddAppartment = () => {
   });
 
   const onFileUpload = (event: any) => {
-    setValue('apartmentPictures', [...apartmentPictures, ...event.target.files]);
+    const addedPictures = [];
+
+    for (let i = 0; i < event.target.files.length; i += 1) {
+      addedPictures.push({
+        src: URL.createObjectURL(event.target.files[i]),
+        name: event.target.files[i].name,
+      });
+    }
+
+    const newPic = {
+      ...event.target.files[0],
+      src: URL.createObjectURL(event.target.files[0]),
+    };
+
+    console.log(newPic);
+
+    setValue('apartmentPictures', [...apartmentPictures, ...addedPictures]);
   };
 
   return (
@@ -135,6 +153,18 @@ const AddAppartment = () => {
           </Grid>
 
           <Grid item xs={6}>
+            <Carousel>
+              { apartmentPictures
+                && apartmentPictures.map((picture: any) => (
+                  <div key={picture.src}>
+                    <img
+                      alt="test"
+                      src={picture.src}
+                    />
+                    <p className="legend">{picture.name}</p>
+                  </div>
+                ))}
+            </Carousel>
             <Button
               variant="contained"
               component="label"
