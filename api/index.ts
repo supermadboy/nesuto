@@ -1,6 +1,6 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import { GridFSBucket, MongoClient } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import * as dotenv from 'dotenv';
@@ -17,15 +17,11 @@ dotenv.config({
 const mongoCredentials = `${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}`;
 const mongoConnection = `${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`;
 
-export const client = new MongoClient(
+const client = new MongoClient(
   `mongodb://${mongoCredentials}@${mongoConnection}?authMechanism=DEFAULT`,
 );
 
-export let pictureBucket: GridFSBucket;
-
-client.connect().then(() => {
-  pictureBucket = new GridFSBucket(client.db('nesuto'));
-});
+client.connect();
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.

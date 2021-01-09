@@ -1,6 +1,6 @@
 import { MongoDataSource } from 'apollo-datasource-mongodb';
-import { pictureBucket } from '../../index';
 import { Scalars } from '../generated/graphql';
+import cloudinaryUpload from '../services/cloudinary';
 
 export type ApartmentPicture = {
     __typename?: 'ApartmentPicture';
@@ -9,7 +9,7 @@ export type ApartmentPicture = {
     filename: Scalars['String'];
     mimetype: Scalars['String'];
     encoding: Scalars['String'];
-    fileId: Scalars['String'];
+    fileUrl: Scalars['String'];
     order: Scalars['Int'];
   };
 
@@ -22,30 +22,14 @@ export interface SubmittedApartmentPicture {
     order: Scalars['Int'];
 }
 
-interface SavedFile {
-  _id: Scalars['ID'],
-  length: number,
-  chunkSize: number,
-  uploadDate: string;
-  filename: string;
-  md5: string;
-}
-
 export default class ApartmentPictures extends MongoDataSource<ApartmentPicture> {
   async addApartmentPicture(apartmentPicture: SubmittedApartmentPicture) {
-    const savedPicture: SavedFile = await new Promise((resolve, reject) => apartmentPicture.createReadStream()
-      .pipe(pictureBucket.openUploadStream(apartmentPicture.filename))
-      .on('finish', (e: SavedFile) => {
-        resolve(e);
-      })
-      .on('error', (e: any) => {
-        reject(e);
-      }));
+    const savedPictureUrl: string = await cloudinaryUpload(apartmentPicture.createReadStream());
 
     // @ts-ignore
     const result = await this.collection.insertOne({
       ...apartmentPicture,
-      fileId: savedPicture._id,
+      fileUrl: savedPictureUrl,
     });
 
     return result.ops[0];

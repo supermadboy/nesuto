@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import DeleteIcon from '@material-ui/icons/Delete';
 import {
   Button,
   Checkbox,
@@ -9,15 +10,30 @@ import {
   FormLabel,
   Grid,
   TextField,
+  createStyles,
+  makeStyles,
 } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { Carousel } from 'react-responsive-carousel';
 import { ADD_APARTMENT } from '../../../graphql/queries/apartments';
 import { Apartment, PaymentType, Hashtags } from '../../../utility/types';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+const useStyles = makeStyles(() => createStyles({
+  controls: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    color: '#fff',
+  },
+}));
 
 const AddAppartment = () => {
+  const classes = useStyles();
+
   const {
     register, handleSubmit, setValue, errors, control,
   } = useForm<Apartment>({
@@ -77,6 +93,8 @@ const AddAppartment = () => {
     name: 'apartmentPictures',
   });
 
+  const [localApartmentPictures, setLocalApartmentPictures] = useState<any>([]);
+
   const [addApartment, { error }] = useMutation<
     { addApartment: Apartment },
     { input: Apartment }
@@ -98,14 +116,31 @@ const AddAppartment = () => {
       });
     }
 
-    const newPic = {
-      ...event.target.files[0],
-      src: URL.createObjectURL(event.target.files[0]),
-    };
+    setLocalApartmentPictures([...localApartmentPictures, ...addedPictures]);
 
-    console.log(newPic);
+    setValue('apartmentPictures', [...apartmentPictures, ...event.target.files]);
+  };
 
-    setValue('apartmentPictures', [...apartmentPictures, ...addedPictures]);
+  const setImageLast = (index: number) => {
+    const localCopy = [...localApartmentPictures];
+    const removedPicture = localCopy.splice(index, 1);
+    localCopy.push(removedPicture[0]);
+    setLocalApartmentPictures(localCopy);
+
+    const localFileCopy = [...apartmentPictures];
+    const removedFilePicture = localFileCopy.splice(index, 1);
+    localFileCopy.push(removedFilePicture[0]);
+    setValue('apartmentPictures', localFileCopy);
+  };
+
+  const deletePicture = (index: number) => {
+    const localCopy = [...localApartmentPictures];
+    localCopy.splice(index, 1);
+    setLocalApartmentPictures(localCopy);
+
+    const localFileCopy = [...apartmentPictures];
+    localFileCopy.splice(index, 1);
+    setValue('apartmentPictures', localFileCopy);
   };
 
   return (
@@ -154,14 +189,25 @@ const AddAppartment = () => {
 
           <Grid item xs={6}>
             <Carousel>
-              { apartmentPictures
-                && apartmentPictures.map((picture: any) => (
+              { localApartmentPictures
+                && localApartmentPictures.map((picture: any, index: number) => (
                   <div key={picture.src}>
                     <img
                       alt="test"
                       src={picture.src}
                     />
                     <p className="legend">{picture.name}</p>
+                    <div className={classes.controls}>
+                      <DeleteIcon
+                        onClick={() => deletePicture(index)}
+                      />
+                      <Button
+                        variant="contained"
+                        onClick={() => setImageLast(index)}
+                      >
+                        Set last
+                      </Button>
+                    </div>
                   </div>
                 ))}
             </Carousel>
