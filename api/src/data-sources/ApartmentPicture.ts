@@ -33,8 +33,6 @@ export default class ApartmentPictures extends MongoDataSource<ApartmentPicture>
 
     const pictures = await result.toArray();
 
-    cloudinaryDelete(pictures[0].cloudinaryName);
-
     const deletedPictures: ObjectID[] = [];
 
     pictures.forEach((picture) => {

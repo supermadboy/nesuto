@@ -14,9 +14,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     alignSelf: 'flex-end',
     marginBottom: theme.spacing(2),
   },
+  divider: {
+    marginBottom: theme.spacing(1),
+  },
 }));
 
-const Appartments = () => {
+const Apartments = () => {
   const { path } = useRouteMatch();
   const classes = useStyles();
 
@@ -29,12 +32,12 @@ const Appartments = () => {
         to={`${path}/add`}
         className={classes.addButton}
       >
-        Add appartment
+        Add apartment
       </Button>
-      <Divider />
+      <Divider className={classes.divider} />
       <ApartmentList admin />
     </div>
   );
 };
 
-export default Appartments;
+export default Apartments;

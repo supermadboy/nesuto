@@ -11,7 +11,8 @@ export interface Apartment {
 }
 
 export interface ApartmentPicture {
-  name: string;
+  cloudinaryName: string;
+  order: number;
 }
 
 export interface PaymentType {

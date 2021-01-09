@@ -1,6 +1,5 @@
 import { GraphQLUpload } from 'apollo-server-express';
 import {
-  GraphQLBoolean,
   GraphQLEnumType,
   GraphQLID,
   GraphQLInputObjectType,

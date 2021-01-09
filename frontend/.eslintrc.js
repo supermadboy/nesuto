@@ -46,4 +46,7 @@ module.exports = {
       typescript: {}, // this loads <rootdir>/tsconfig.json to eslint
     },
   },
+  ignorePatterns: [
+    'cloudinary-react.d.ts',
+  ],
 };

@@ -126,6 +126,10 @@ const nesutoMutations = new GraphQLObjectType({
 
         const result = await apartmentsApi.removeApartment(input._id);
 
+        if (result.ok === 1) {
+          return { _id: input._id };
+        }
+
         return result;
       },
     },

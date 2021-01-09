@@ -1,8 +1,19 @@
 import { gql } from '@apollo/client';
-import { Apartment } from '../../utility/types';
+import { ApartmentPicture, HashtagsEnum, PaymentTypeEnum } from '../../utility/types';
 
+export interface ApartmentResponse {
+  _id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  price: number;
+  numberOfRooms: number;
+  paymentType: PaymentTypeEnum[];
+  hashtags: HashtagsEnum[];
+  apartmentPictures: ApartmentPicture[];
+}
 export interface ApartmentsData {
-  apartments: Apartment[];
+  apartments: ApartmentResponse[];
 }
 
 export const APARTMENTS = gql`
@@ -14,7 +25,7 @@ export const APARTMENTS = gql`
       hashtags
       paymentType
       apartmentPictures {
-        fileUrl
+        cloudinaryName
         order
       }
     }

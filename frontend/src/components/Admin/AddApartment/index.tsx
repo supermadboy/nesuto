@@ -16,6 +16,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { Carousel } from 'react-responsive-carousel';
+import { useHistory } from 'react-router-dom';
 import { ADD_APARTMENT } from '../../../graphql/queries/apartments';
 import {
   Apartment,
@@ -37,8 +38,9 @@ const useStyles = makeStyles(() => createStyles({
   },
 }));
 
-const AddAppartment = () => {
+const AddApartment = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   const {
     register, handleSubmit, setValue, errors, control,
@@ -154,6 +156,8 @@ const AddAppartment = () => {
     addApartment({
       variables: { input: formData },
     });
+
+    history.push(`${process.env.REACT_APP_ADMIN_ROUTE as string}/apartments`);
   });
 
   const onFileUpload = (event: any) => {
@@ -386,4 +390,4 @@ const AddAppartment = () => {
   );
 };
 
-export default AddAppartment;
+export default AddApartment;

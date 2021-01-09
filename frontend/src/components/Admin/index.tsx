@@ -14,8 +14,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import Dashboard from './Dashboard';
 import { VERIFY } from '../../graphql/queries/user';
 import ProtectedRoute from '../ProtectedRoute';
-import AddAppartment from './AddAppartment';
-import Appartments from './Appartments';
+import AddApartment from './AddApartment';
+import Apartments from './Apartments';
 import ListItemLink from '../ListItemLink';
 
 const drawerWidth = 240;
@@ -91,15 +91,15 @@ const Admin = () => {
         <Divider />
         <List>
           <ListItemLink to={path} primary="Dashboard" icon={<DashboardIcon />} />
-          <ListItemLink to={`${path}/appartments`} primary="Appartments" icon={<HomeIcon />} />
+          <ListItemLink to={`${path}/apartments`} primary="Apartments" icon={<HomeIcon />} />
         </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Card className={classes.card}>
           <Switch>
-            <ProtectedRoute path={`${path}/appartments/add`} isSignedIn={signedIn} component={AddAppartment} />
-            <ProtectedRoute path={`${path}/appartments`} isSignedIn={signedIn} component={Appartments} />
+            <ProtectedRoute path={`${path}/apartments/add`} isSignedIn={signedIn} component={AddApartment} />
+            <ProtectedRoute path={`${path}/apartments`} isSignedIn={signedIn} component={Apartments} />
             <ProtectedRoute path={path} isSignedIn={signedIn} component={Dashboard} />
           </Switch>
         </Card>
