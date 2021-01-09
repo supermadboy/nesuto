@@ -18,6 +18,7 @@ export const ApartmentPicture = new GraphQLObjectType({
     mimetype: { type: GraphQLNonNull(GraphQLString) },
     encoding: { type: GraphQLNonNull(GraphQLString) },
     fileUrl: { type: GraphQLNonNull(GraphQLString) },
+    cloudinaryName: { type: GraphQLNonNull(GraphQLString) },
   },
 });
 

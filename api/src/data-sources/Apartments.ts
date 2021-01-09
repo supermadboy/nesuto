@@ -15,7 +15,6 @@ export default class Apartments extends MongoDataSource<Apartment> {
   }
 
   async removeApartment(_id: string) {
-    // @ts-ignore
     const result = await this.collection.deleteOne({ _id: new ObjectID(_id) });
 
     return result.result;

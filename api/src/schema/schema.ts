@@ -6,11 +6,12 @@ import {
   GraphQLString,
 } from 'graphql';
 import jwt from 'jsonwebtoken';
+import ApartmentPictures from '../data-sources/ApartmentPicture';
 import Apartments from '../data-sources/Apartments';
-import ApartmentPictures, { SubmittedApartmentPicture } from '../data-sources/ApartmentPicture';
-import { GeneralError, NotLoggedIn } from '../error';
+import { CouldNotDeleteAllPictures, GeneralError, NotLoggedIn } from '../error';
 import verifyJWTToken from '../utility';
 import { addApartment, Apartment, removeApartment } from './apartment';
+import { SubmittedApartmentPicture } from './apartmentPicture';
 import { addUser, User, ValidJWTToken } from './user';
 
 const nesutoQueries = new GraphQLObjectType({
@@ -106,12 +107,19 @@ const nesutoMutations = new GraphQLObjectType({
           type: GraphQLNonNull(removeApartment),
         },
       },
-      async resolve(root, { input }, { apartmentsApi, req }: {apartmentsApi: Apartments, req: any}) {
+      async resolve(root, { input }, { apartmentsApi, req, apartmentPicturesApi }: {apartmentsApi: Apartments,
+        req: any, apartmentPicturesApi: ApartmentPictures}) {
         if (!req.signedCookies.token) {
           throw new NotLoggedIn();
         }
 
         verifyJWTToken(req.signedCookies.token);
+
+        const pictureRemoveResult = await apartmentPicturesApi.deleteApartmentPicture(input._id);
+
+        if (pictureRemoveResult.ok !== 1) {
+          throw new CouldNotDeleteAllPictures();
+        }
 
         const result = await apartmentsApi.removeApartment(input._id);
 

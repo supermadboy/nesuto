@@ -28,3 +28,9 @@ export class LoginExpired extends ApolloError {
     super('Your Login expired, please relog', ERROR_TYPE);
   }
 }
+
+export class CouldNotDeleteAllPictures extends ApolloError {
+  constructor() {
+    super('Not all pictures could be deleted from the cloud', 'NOT_ALL_PICTURES_WERE_DELETED');
+  }
+}

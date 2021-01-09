@@ -1,10 +1,11 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import { ObjectId } from 'mongodb';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
+  ID: ObjectId;
   String: string;
   Boolean: boolean;
   Int: number;
@@ -69,6 +70,7 @@ export type ApartmentPicture = {
   mimetype: Scalars['String'];
   encoding: Scalars['String'];
   fileUrl: Scalars['String'];
+  cloudinaryName: Scalars['String'];
 };
 
 export type User = {
@@ -302,6 +304,7 @@ export type ApartmentPictureResolvers<ContextType = any, ParentType extends Reso
   mimetype?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   encoding?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   fileUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  cloudinaryName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

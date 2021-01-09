@@ -1,26 +1,50 @@
 import { MongoDataSource } from 'apollo-datasource-mongodb';
-import { ApartmentPicture, Scalars } from '../generated/graphql';
+import { ObjectID } from 'mongodb';
+import { ApartmentPicture } from '../generated/graphql';
 import { SubmittedApartmentPicture } from '../schema/apartmentPicture';
-import cloudinaryUpload from '../services/cloudinary';
+import { cloudinaryUpload, cloudinaryDelete } from '../services/cloudinary';
 
 export default class ApartmentPictures extends MongoDataSource<ApartmentPicture> {
   async addApartmentPicture(apartmentPicture: SubmittedApartmentPicture) {
-    const savedPictureUrl: string = await cloudinaryUpload(apartmentPicture.createReadStream());
+    const savedPictureUrl = await cloudinaryUpload(apartmentPicture.createReadStream());
 
     // @ts-ignore
     const result = await this.collection.insertOne({
       ...apartmentPicture,
-      fileUrl: savedPictureUrl,
+      fileUrl: savedPictureUrl.url,
+      cloudinaryName: savedPictureUrl.publicId,
     });
 
     return result.ops[0];
   }
 
-  async apartmentPicturesByApartmentId(apartmentId : any) {
+  async apartmentPicturesByApartmentId(apartmentId : ObjectID) {
     const result = await this.collection.find({ apartmentId });
 
     const pictures = await result.toArray();
 
     return pictures;
+  }
+
+  async deleteApartmentPicture(apartmentId: string) {
+    const result = await this.collection.find({ apartmentId: new ObjectID(apartmentId) });
+
+    const pictures = await result.toArray();
+
+    cloudinaryDelete(pictures[0].cloudinaryName);
+
+    const deletedPictures: ObjectID[] = [];
+
+    pictures.forEach((picture) => {
+      if (cloudinaryDelete(picture.cloudinaryName)) {
+        if (picture._id) {
+          deletedPictures.push(picture._id);
+        }
+      }
+    });
+
+    const deleteDBResult = await this.collection.deleteMany({ _id: { $in: deletedPictures } });
+
+    return deleteDBResult.result;
   }
 }
