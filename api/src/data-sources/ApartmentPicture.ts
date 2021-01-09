@@ -1,26 +1,7 @@
 import { MongoDataSource } from 'apollo-datasource-mongodb';
-import { Scalars } from '../generated/graphql';
+import { ApartmentPicture, Scalars } from '../generated/graphql';
+import { SubmittedApartmentPicture } from '../schema/apartmentPicture';
 import cloudinaryUpload from '../services/cloudinary';
-
-export type ApartmentPicture = {
-    __typename?: 'ApartmentPicture';
-    _id: Scalars['ID'];
-    apartmentId: Scalars['ID'];
-    filename: Scalars['String'];
-    mimetype: Scalars['String'];
-    encoding: Scalars['String'];
-    fileUrl: Scalars['String'];
-    order: Scalars['Int'];
-  };
-
-export interface SubmittedApartmentPicture {
-    apartmentId: Scalars['ID'];
-    filename: Scalars['String'];
-    mimetype: Scalars['String'];
-    encoding: Scalars['String'];
-    createReadStream: Function;
-    order: Scalars['Int'];
-}
 
 export default class ApartmentPictures extends MongoDataSource<ApartmentPicture> {
   async addApartmentPicture(apartmentPicture: SubmittedApartmentPicture) {
@@ -33,5 +14,13 @@ export default class ApartmentPictures extends MongoDataSource<ApartmentPicture>
     });
 
     return result.ops[0];
+  }
+
+  async apartmentPicturesByApartmentId(apartmentId : any) {
+    const result = await this.collection.find({ apartmentId });
+
+    const pictures = await result.toArray();
+
+    return pictures;
   }
 }

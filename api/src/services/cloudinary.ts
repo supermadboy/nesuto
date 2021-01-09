@@ -1,13 +1,13 @@
 import cloudinary, { UploadStream } from 'cloudinary';
 
-cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
 const cloudinaryUpload = async (stream: UploadStream) => {
   let resultUrl = '';
+
+  cloudinary.v2.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
 
   try {
     await new Promise((resolve, reject) => {
@@ -24,7 +24,7 @@ const cloudinaryUpload = async (stream: UploadStream) => {
       stream.pipe(streamLoad);
     });
   } catch (err) {
-    throw new Error(`Failed to upload profile picture ! Err:${err.message}`);
+    throw new Error(`Failed to upload profile picture ! Err:${err}`);
   }
 
   return resultUrl;

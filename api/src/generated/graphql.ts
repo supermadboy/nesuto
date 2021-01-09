@@ -41,6 +41,7 @@ export type Apartment = {
   numberOfRooms: Scalars['Int'];
   paymentType?: Maybe<PaymentType>;
   hashtags?: Maybe<Hashtags>;
+  apartmentPictures?: Maybe<Array<Maybe<ApartmentPicture>>>;
 };
 
 export type PaymentType = {
@@ -57,6 +58,17 @@ export type Hashtags = {
   terrace: Scalars['Boolean'];
   garden: Scalars['Boolean'];
   balcony: Scalars['Boolean'];
+};
+
+export type ApartmentPicture = {
+  __typename?: 'ApartmentPicture';
+  _id?: Maybe<Scalars['ID']>;
+  apartmentId: Scalars['ID'];
+  order: Scalars['Int'];
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
+  encoding: Scalars['String'];
+  fileUrl: Scalars['String'];
 };
 
 export type User = {
@@ -209,6 +221,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   PaymentType: ResolverTypeWrapper<PaymentType>;
   Hashtags: ResolverTypeWrapper<Hashtags>;
+  ApartmentPicture: ResolverTypeWrapper<ApartmentPicture>;
   User: ResolverTypeWrapper<User>;
   Mutation: ResolverTypeWrapper<{}>;
   addApartment: AddApartment;
@@ -230,6 +243,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   PaymentType: PaymentType;
   Hashtags: Hashtags;
+  ApartmentPicture: ApartmentPicture;
   User: User;
   Mutation: {};
   addApartment: AddApartment;
@@ -260,6 +274,7 @@ export type ApartmentResolvers<ContextType = any, ParentType extends ResolversPa
   numberOfRooms?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   paymentType?: Resolver<Maybe<ResolversTypes['PaymentType']>, ParentType, ContextType>;
   hashtags?: Resolver<Maybe<ResolversTypes['Hashtags']>, ParentType, ContextType>;
+  apartmentPictures?: Resolver<Maybe<Array<Maybe<ResolversTypes['ApartmentPicture']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -276,6 +291,17 @@ export type HashtagsResolvers<ContextType = any, ParentType extends ResolversPar
   terrace?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   garden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   balcony?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ApartmentPictureResolvers<ContextType = any, ParentType extends ResolversParentTypes['ApartmentPicture'] = ResolversParentTypes['ApartmentPicture']> = {
+  _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  apartmentId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  order?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  filename?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  mimetype?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  encoding?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  fileUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -302,6 +328,7 @@ export type Resolvers<ContextType = any> = {
   Apartment?: ApartmentResolvers<ContextType>;
   PaymentType?: PaymentTypeResolvers<ContextType>;
   Hashtags?: HashtagsResolvers<ContextType>;
+  ApartmentPicture?: ApartmentPictureResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Upload?: GraphQLScalarType;

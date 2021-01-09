@@ -9,6 +9,8 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql';
+import ApartmentPictures from '../data-sources/ApartmentPicture';
+import { ApartmentPicture } from './apartmentPicture';
 
 const PaymentType = new GraphQLObjectType({
   name: 'PaymentType',
@@ -50,23 +52,6 @@ const HashtagsInput = new GraphQLInputObjectType({
   },
 });
 
-export const ApartmentPicture = new GraphQLObjectType({
-  name: 'ApartmentPicture',
-  fields: {
-    _id: { type: GraphQLID },
-    apartmentId: { type: GraphQLNonNull(GraphQLID) },
-    order: { type: GraphQLNonNull(GraphQLInt) },
-    chunk: { type: GraphQLNonNull(GraphQLString) },
-  },
-});
-
-export const ApartmentPictureInput = new GraphQLInputObjectType({
-  name: 'ApartmentPictureInput',
-  fields: {
-    name: { type: GraphQLNonNull(GraphQLString) },
-  },
-});
-
 export const Apartment = new GraphQLObjectType({
   name: 'Apartment',
   fields: {
@@ -77,6 +62,14 @@ export const Apartment = new GraphQLObjectType({
     numberOfRooms: { type: GraphQLNonNull(GraphQLInt) },
     paymentType: { type: PaymentType },
     hashtags: { type: Hashtags },
+    apartmentPictures: {
+      type: GraphQLList(ApartmentPicture),
+      resolve: async (apartment, {}, { apartmentPicturesApi }) => {
+        const pictures = await apartmentPicturesApi.apartmentPicturesByApartmentId(apartment._id);
+
+        return pictures;
+      },
+    },
   },
 });
 
