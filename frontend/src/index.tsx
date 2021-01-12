@@ -19,10 +19,26 @@ import Login from './components/Admin/Login';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#3ff9b0',
+      dark: '#acc0b3',
+      main: '#c6d2ca',
+      light: '#e0e4e1',
     },
-    secondary: {
-      main: '#f3a',
+    background: {
+      default: '#fff',
+    },
+  },
+  typography: {
+    fontFamily: [
+      '"Source Sans Pro"',
+      'sans-serif',
+      'Arvo',
+      'serif',
+    ].join(','),
+    h2: {
+      fontFamily: 'Arvo',
+    },
+    h3: {
+      fontFamily: 'Arvo',
     },
   },
   overrides: {
