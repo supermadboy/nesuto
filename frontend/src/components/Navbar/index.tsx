@@ -1,5 +1,5 @@
 import {
-  createStyles, makeStyles, Theme, Typography,
+  createStyles, Link, makeStyles, Theme, Typography,
 } from '@material-ui/core';
 import React from 'react';
 import Logo from '../../assets/svg/logo_with_typo.svg';
@@ -9,10 +9,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     position: 'absolute',
     justifyContent: 'space-between',
-    backgroundColor: theme.palette.primary.light,
-    padding: `0 ${theme.spacing(4)}px`,
+    backgroundColor: theme.palette.primary.main,
+    padding: `${theme.spacing(1)}px ${theme.spacing(4)}px`,
     width: '100%',
-    '& h3': {
+    '& h5': {
       paddingRight: theme.spacing(8),
       display: 'table-cell',
       verticalAlign: 'middle',
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     height: '100%',
   },
   logo: {
-    width: '200px',
+    width: '150px',
   },
 }));
 
@@ -33,10 +33,26 @@ const Navbar = () => {
   return (
     <div className={classes.navbar}>
       <div className={classes.links}>
-        <Typography variant="h3">Wir bieten</Typography>
-        <Typography variant="h3">über uns</Typography>
-        <Typography variant="h3">Angebote</Typography>
-        <Typography variant="h3">Kontakt</Typography>
+        <Typography variant="h5">
+          <Link href="#WirBieten" color="inherit">
+            Wir bieten
+          </Link>
+        </Typography>
+        <Typography variant="h5">
+          <Link href="#ueberUns" color="inherit">
+            über uns
+          </Link>
+        </Typography>
+        <Typography variant="h5">
+          <Link href="/adverts" color="inherit">
+            Angebote
+          </Link>
+        </Typography>
+        <Typography variant="h5">
+          <Link href="#Kontakt" color="inherit">
+            Kontakt
+          </Link>
+        </Typography>
       </div>
       <img className={classes.logo} src={Logo} alt="logo" />
     </div>

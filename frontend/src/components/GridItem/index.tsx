@@ -4,70 +4,80 @@ import {
 import React, { ReactNode } from 'react';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  landingPage: {
-    backgroundColor: theme.palette.primary.light,
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  logo: {
-    width: '70%',
-  },
   mobile: {
     display: 'none',
   },
   halfHeight: {
     height: '50%',
   },
-  fullHeight: {
-    height: '100%',
-  },
   lightBackground: {
     backgroundColor: theme.palette.primary.light,
   },
-  upperLeft: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  mainBackground: {
+    backgroundColor: theme.palette.primary.main,
   },
-  nestImage: {
-    width: '50%',
-    marginTop: theme.spacing(3),
+  darkBackground: {
+    backgroundColor: theme.palette.primary.dark,
   },
-  fullscreenImage: {
-    width: '100%',
-    minHeight: '100%',
-  },
-  bottomRight: {
+  whiteBackground: {
     backgroundColor: theme.palette.background.default,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  },
+  defaultBackground: {
+    backgroundColor: 'transparent',
   },
 }));
 
+/* eslint-disable */
+// https://stackoverflow.com/questions/63961803/eslint-says-all-enums-in-typescript-app-are-already-declared-in-the-upper-scope
+export enum BackgroundColor {
+  light = 'light',
+  main = 'main',
+  dark = 'dark',
+  white = 'white',
+}
+/* eslint-enable */
+
 interface GridItemProps {
   halfHeight?: boolean;
+  fullWidth?: boolean;
   disableMobile?: boolean;
   children?: ReactNode;
   className?: string[],
+  backgroundColor?: BackgroundColor,
 }
+
+const selectedBackgroundColor = (bgColor: BackgroundColor|undefined, classes: any): string => {
+  switch (bgColor) {
+    case BackgroundColor.light:
+      return classes.lightBackground;
+    case BackgroundColor.main:
+      return classes.mainBackground;
+    case BackgroundColor.dark:
+      return classes.darkBackground;
+    case BackgroundColor.white:
+      return classes.whiteBackground;
+    default:
+      return classes.defaultBackground;
+  }
+};
 
 const GridItem: React.FunctionComponent<GridItemProps> = (props: GridItemProps) => {
   const classes = useStyles();
   const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const {
-    halfHeight, children, disableMobile, className,
+    halfHeight, children, disableMobile, className, fullWidth, backgroundColor,
   } = props;
 
   return (
     <Grid
       item
       xs={12}
-      md={6}
+      md={fullWidth ? 12 : 6}
       className={`
         ${halfHeight ? classes.halfHeight : ''}
         ${disableMobile && mobile ? classes.mobile : ''}
-        ${className}
+        ${className?.map((c) => ` ${c} `)}
+        ${selectedBackgroundColor(backgroundColor, classes)}
       `}
     >
       {children}
@@ -78,8 +88,10 @@ const GridItem: React.FunctionComponent<GridItemProps> = (props: GridItemProps) 
 GridItem.defaultProps = {
   halfHeight: false,
   disableMobile: false,
+  fullWidth: false,
   children: null,
   className: [],
+  backgroundColor: undefined,
 };
 
 export default GridItem;

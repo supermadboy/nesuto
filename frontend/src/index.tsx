@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, responsiveFontSizes } from '@material-ui/core';
 import Adverts from './components/Adverts';
 import Home from './components/Home';
 import Admin from './components/Admin';
@@ -16,7 +16,7 @@ import reportWebVitals from './reportWebVitals';
 import client from './utility/apolloClient';
 import Login from './components/Admin/Login';
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
   palette: {
     primary: {
       dark: '#acc0b3',
@@ -34,6 +34,7 @@ const theme = createMuiTheme({
       'Arvo',
       'serif',
     ].join(','),
+    fontSize: 20,
     h2: {
       fontFamily: 'Arvo',
     },
@@ -44,16 +45,20 @@ const theme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
       '@global': {
-        html: {
-          height: '100%',
-        },
         body: {
-          height: '100%',
+          backgroundColor: '#e0e4e1',
         },
+      },
+    },
+    MuiPaper: {
+      root: {
+        backgroundColor: 'transparent',
       },
     },
   },
 });
+
+theme = responsiveFontSizes(theme);
 
 ReactDOM.render(
   <ApolloProvider client={client}>

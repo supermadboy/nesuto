@@ -3,9 +3,10 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import Nest from '../../assets/images/nest-3836348_960_720_multipliziert.png';
-import Flat from '../../assets/images/architecture-5031117_1920.jpg';
+import Flat from '../../assets/images/interior-design-4799243_1920.jpg';
 import Flower from '../../assets/images/flower-4905417_1920.jpg';
-import GridItem from '../GridItem';
+import Logo from '../../assets/svg/logo_with_typo.svg';
+import GridItem, { BackgroundColor } from '../GridItem';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   fullHeight: {
@@ -15,21 +16,34 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: theme.palette.primary.light,
+    '& > p': {
+      maxWidth: '400px',
+      textAlign: 'center',
+    },
   },
   nestImage: {
-    width: '50%',
+    width: '25%',
     marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(1),
+  },
+  logo: {
+    width: '25%',
+    marginBottom: theme.spacing(2),
   },
   fullscreenImage: {
     width: '100%',
     minHeight: '100%',
   },
   bottomRight: {
-    backgroundColor: theme.palette.background.default,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
+    '& > p': {
+      marginTop: theme.spacing(3),
+      textAlign: 'center',
+      maxWidth: '540px',
+    },
   },
 }));
 
@@ -38,12 +52,18 @@ const WeOffer = () => {
 
   return (
     <Grid container className={classes.fullHeight}>
+      {
+        // @ts-ignore
+        // eslint-disable-next-line
+      }<a name="WirBieten"></a>
+
       <GridItem
         halfHeight
         className={[classes.upperLeft]}
+        backgroundColor={BackgroundColor.light}
       >
         <img src={Nest} className={classes.nestImage} alt="Nest" />
-        <Typography variant="h2">Nesuto</Typography>
+        <img src={Logo} className={classes.logo} alt="nesuto logo" />
         <Typography variant="body1">jap.: Nest</Typography>
         <Typography variant="body1">(1) Stätte der Aufzucht der Jungen und der Wohnort bestimmer Lebewesen</Typography>
         <Typography variant="body1">(2) übertragen: Wohnstätte als Zukunftsort, Ort der Geborgenheit</Typography>
@@ -65,6 +85,7 @@ const WeOffer = () => {
       <GridItem
         halfHeight
         className={[classes.bottomRight]}
+        backgroundColor={BackgroundColor.white}
       >
         <Typography variant="h2">let us move you</Typography>
         <Typography variant="body1">
@@ -72,7 +93,7 @@ const WeOffer = () => {
           Lösungen sind unser Grundgedanke. Wir finden, bilden und generieren Ihren neuen Raum,
           sind Ihr offenes Ohr und Ihre arbeitende Hände. Zusammen mit Ihnen entwickeln wir
           unverwechselbare, individuelle Nester, damit Sie sich Zuhause fühlen. Wir finden
-          Ihre passende Heimatadresse im Raum Düsseldorf
+          Ihre passende Heimadresse im Raum Düsseldorf
         </Typography>
       </GridItem>
     </Grid>

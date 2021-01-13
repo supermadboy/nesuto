@@ -5,12 +5,13 @@ import LandingPageLogo from '../../assets/svg/Log_LandingPage.svg';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   landingPage: {
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.primary.main,
     display: 'flex',
     justifyContent: 'center',
+    height: '100%',
   },
   logo: {
-    width: '70%',
+    width: '50%',
   },
 }));
 

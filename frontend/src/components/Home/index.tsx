@@ -1,11 +1,15 @@
 import {
-  createStyles, makeStyles, Paper, Grid, useMediaQuery, Theme,
+  createStyles, makeStyles, Paper,
 } from '@material-ui/core';
 import React from 'react';
+import AboutUs from '../AboutUs';
+import Contact from '../Contact';
 import LandingPage from '../LandingPage';
+import Offers from '../Offers';
+import Procedure from '../Procedure';
 import WeOffer from '../WeOffer';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   root: {
     display: 'block',
   },
@@ -13,89 +17,30 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     height: '100vh',
     width: '100%',
   },
-  mobile: {
-    display: 'none',
-  },
-  halfHeight: {
-    height: '50%',
-  },
-  fullHeight: {
-    height: '100%',
-  },
-  lightBackground: {
-    backgroundColor: theme.palette.primary.light,
-  },
 }));
 
 const Home = () => {
   const classes = useStyles();
-  const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
     <div className={classes.root}>
-      <Paper
-        elevation={0}
-        className={`
-          ${classes.page}
-          ${classes.lightBackground}
-        `}
-      >
+      <Paper elevation={0} className={classes.page}>
         <LandingPage />
       </Paper>
       <Paper elevation={0} className={classes.page}>
         <WeOffer />
       </Paper>
       <Paper elevation={0} className={classes.page}>
-        test
+        <Procedure />
       </Paper>
       <Paper elevation={0} className={classes.page}>
-        test
+        <AboutUs />
       </Paper>
       <Paper elevation={0} className={classes.page}>
-        test
+        <Offers />
       </Paper>
       <Paper elevation={0} className={classes.page}>
-        <Grid container className={classes.fullHeight}>
-          <Grid
-            item
-            xs={6}
-            className={`
-              ${classes.halfHeight}
-              ${classes.lightBackground}
-            `}
-          >
-            nesuto
-          </Grid>
-
-          <Grid
-            item
-            xs={6}
-            className={classes.halfHeight}
-          >
-            Bild
-          </Grid>
-
-          <Grid
-            item
-            xs={6}
-            className={`
-              ${classes.halfHeight}
-              ${mobile ? classes.mobile : ''}
-            `}
-          >
-            Bild
-          </Grid>
-          <Grid
-            item
-            xs={6}
-            className={`
-            ${classes.halfHeight}
-            ${mobile ? classes.mobile : ''}
-          `}
-          >
-            let us move you
-          </Grid>
-        </Grid>
+        <Contact />
       </Paper>
     </div>
   );
