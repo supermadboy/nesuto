@@ -3,14 +3,16 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import Nest from '../../assets/images/nest-3836348_960_720_multipliziert.png';
-import Flat from '../../assets/images/interior-design-4799243_1920.jpg';
-import Flower from '../../assets/images/flower-4905417_1920.jpg';
+import Flat from '../../assets/images/chairs-2181968_1920.jpg';
+import Pencil from '../../assets/images/pencil-791107_1920.jpg';
 import Logo from '../../assets/svg/logo_with_typo.svg';
 import GridItem, { BackgroundColor } from '../GridItem';
+import SideBreadcrumb from '../SideBreadcrumb';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   fullHeight: {
     height: '100%',
+    position: 'relative',
   },
   upperLeft: {
     display: 'flex',
@@ -57,6 +59,11 @@ const WeOffer = () => {
         // eslint-disable-next-line
       }<a name="WirBieten"></a>
 
+      <SideBreadcrumb
+        title="wir bieten"
+        number="002"
+      />
+
       <GridItem
         halfHeight
         className={[classes.upperLeft]}
@@ -80,7 +87,7 @@ const WeOffer = () => {
         halfHeight
         disableMobile
       >
-        <img className={classes.fullscreenImage} src={Flower} alt="eine schöne Blume" />
+        <img className={classes.fullscreenImage} src={Pencil} alt="eine schöne Blume" />
       </GridItem>
       <GridItem
         halfHeight

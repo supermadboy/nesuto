@@ -1,32 +1,31 @@
 import {
-  createStyles, Grid, makeStyles, Theme, Typography,
+  createStyles, Grid, makeStyles, Theme,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import Graphic from '../../assets/svg/Grafik.svg';
 import ArrowPrev from '../../assets/svg/arrow_left.svg';
 import ArrowNext from '../../assets/svg/arrow_right.svg';
-import NumberOne from '../../assets/svg/number_1.svg';
 import GridItem, { BackgroundColor } from '../GridItem';
 import ProcedureCarousel from './ProcedureCarousel';
+import SpacedLetters from './SpacedLetters';
+import SideBreadcrumb from '../SideBreadcrumb';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   fullHeight: {
     height: '100%',
+    position: 'relative',
   },
   bottomRight: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     '& > div': {
-      minWidth: '55%',
-      '& h2': {
-        fontFamily: '"Source Sans Pro"',
-      },
+      minWidth: '60%',
     },
-  },
-  typoLine: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    '& h2': {
+      fontFamily: '"Source Sans Pro"',
+      lineHeight: '100px',
+    },
   },
   upperLeft: {
     display: 'flex',
@@ -46,27 +45,43 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       width: '90%',
       height: '80%',
       alignItems: 'center',
-      color: theme.palette.primary.dark,
+      color: 'black',
     },
   },
   upperRightContainer: {
+    height: '100%',
     flexGrow: 1,
     '& > div': {
+      height: '100%',
       width: '100%',
+      position: 'relative',
     },
   },
   arrow: {
     height: '70px',
+    cursor: 'pointer',
+    zIndex: 1,
+  },
+  arrowContainer: {
+    zIndex: 1,
   },
 }));
 
 const Procedure = () => {
   const classes = useStyles();
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   return (
     <Grid container className={classes.fullHeight}>
+
+      <SideBreadcrumb
+        title="Ablauf"
+        number="003"
+      />
       <GridItem
         className={[classes.fullHeight, classes.upperLeft]}
+        backgroundColor={BackgroundColor.white}
         disableMobile
       >
         <img className={classes.graphicImage} src={Graphic} alt="Grafik für nesutos Vorgehen" />
@@ -81,15 +96,41 @@ const Procedure = () => {
           className={[classes.upperRight]}
         >
           <div>
-            <img src={ArrowPrev} className={classes.arrow} alt="Pfeil zurück" />
+            <div
+              role="button"
+              tabIndex={0}
+              className={classes.arrowContainer}
+              onClick={() => {
+                if (currentSlide > 0) setCurrentSlide(currentSlide - 1);
+              }}
+              onKeyDown={() => {
+                if (currentSlide > 0) setCurrentSlide(currentSlide - 1);
+              }}
+            >
+              <img src={ArrowPrev} className={classes.arrow} alt="Pfeil zurück" />
+            </div>
             <div className={classes.upperRightContainer}>
               <ProcedureCarousel
-                img={NumberOne}
-                title="Beratung"
-                text={['Beratungsgespräch,', <br />, 'Erstellung Ihres Suchprofils,', <br />, 'Zielfestlegung']}
+                currentSlide={currentSlide}
               />
             </div>
-            <img src={ArrowNext} className={classes.arrow} alt="Pfeil vorwärts" />
+            <div
+              role="button"
+              tabIndex={0}
+              className={classes.arrowContainer}
+              onClick={() => {
+                if (currentSlide < 4) setCurrentSlide(currentSlide + 1);
+              }}
+              onKeyDown={() => {
+                if (currentSlide < 4) setCurrentSlide(currentSlide + 1);
+              }}
+            >
+              <img
+                src={ArrowNext}
+                className={classes.arrow}
+                alt="Pfeil vorwärts"
+              />
+            </div>
           </div>
         </GridItem>
         <GridItem
@@ -99,42 +140,9 @@ const Procedure = () => {
           className={[classes.bottomRight]}
         >
           <div>
-            <div className={classes.typoLine}>
-              <Typography
-                variant="h2"
-              >
-                immo
-              </Typography>
-              <Typography
-                variant="h2"
-              >
-                bilien
-              </Typography>
-            </div>
-            <div className={classes.typoLine}>
-              <Typography
-                variant="h2"
-              >
-                architekt
-              </Typography>
-              <Typography
-                variant="h2"
-              >
-                ur
-              </Typography>
-            </div>
-            <div className={classes.typoLine}>
-              <Typography
-                variant="h2"
-              >
-                ver
-              </Typography>
-              <Typography
-                variant="h2"
-              >
-                waltung
-              </Typography>
-            </div>
+            <SpacedLetters word="immobilien" />
+            <SpacedLetters word="architektur" />
+            <SpacedLetters word="verwaltung" />
           </div>
         </GridItem>
       </GridItem>

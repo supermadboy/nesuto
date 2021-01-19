@@ -5,12 +5,14 @@ import React from 'react';
 import GridItem, { BackgroundColor } from '../GridItem';
 import Thilo from '../../assets/svg/Illu_Thilo.svg';
 import Lena from '../../assets/svg/Illu_Lena.svg';
+import SideBreadcrumb from '../SideBreadcrumb';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   fullHeight: {
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
+    position: 'relative',
   },
   imgSize: {
     width: '400px',
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: theme.spacing(8),
+    paddingTop: theme.spacing(16),
   },
 }));
 
@@ -35,12 +37,16 @@ const AboutUs = () => {
         // eslint-disable-next-line
       }<a name="ueberUns"></a>
 
+      <SideBreadcrumb
+        title="über uns"
+        number="004"
+      />
+
       <GridItem
         backgroundColor={BackgroundColor.main}
         className={[classes.fullHeight]}
       >
         <div className={classes.content}>
-          <Typography variant="h2">Thilo</Typography>
           <img src={Thilo} alt="Thilo Stralkowski" className={classes.imgSize} />
           <Typography variant="body1"><b>Thilo Stralkowski</b></Typography>
           <Typography variant="body2">Olympiasieger 2012 London, Hockey</Typography>
@@ -52,11 +58,10 @@ const AboutUs = () => {
       </GridItem>
 
       <GridItem
-        backgroundColor={BackgroundColor.main}
+        backgroundColor={BackgroundColor.white}
         className={[classes.fullHeight]}
       >
         <div className={classes.content}>
-          <Typography variant="h2">Lena</Typography>
           <img src={Lena} alt="Lena Herrmann" className={classes.imgSize} />
           <Typography variant="body1"><b>Lena Herrmann</b></Typography>
           <Typography variant="body2">Dipl. Ing. Architektur</Typography>

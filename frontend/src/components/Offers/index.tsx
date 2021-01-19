@@ -5,22 +5,29 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import GridItem, { BackgroundColor } from '../GridItem';
 import ArrowHouse from '../../assets/svg/Gitter_Pfeil.svg';
-import ArchitecturePlan from '../../assets/images/architecture-1857175_1920.jpg';
+import Renovation from '../../assets/images/renovation-4581460_1920.jpg';
 import Arrow from '../../assets/svg/arrow_right.svg';
+import BouncingCircles from '../../assets/images/Animation_2.gif';
+import SideBreadcrumb from '../SideBreadcrumb';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   fullHeight: {
     height: '100%',
+    position: 'relative',
   },
   fullscreenImage: {
     width: '100%',
     minHeight: '100%',
   },
+  fullscreenSvg: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
   upperLeft: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: theme.palette.primary.dark,
     '& h2': {
       marginBottom: theme.spacing(2),
     },
@@ -37,8 +44,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
+    backgroundImage: `url(${BouncingCircles})`,
     '& span': {
-      color: theme.palette.primary.dark,
+      color: 'transparent',
     },
   },
 }));
@@ -49,6 +57,11 @@ const Offers = () => {
 
   return (
     <Grid container className={classes.fullHeight}>
+      <SideBreadcrumb
+        title="Angebote"
+        number="005"
+      />
+
       <GridItem
         halfHeight
         className={[classes.upperLeft]}
@@ -78,13 +91,13 @@ const Offers = () => {
         disableMobile
         backgroundColor={BackgroundColor.white}
       >
-        <img className={classes.fullscreenImage} src={ArrowHouse} alt="Ein Pfeil und ein Haus" />
+        <img className={classes.fullscreenSvg} src={ArrowHouse} alt="Ein Pfeil und ein Haus" />
       </GridItem>
       <GridItem
         halfHeight
         disableMobile
       >
-        <img className={classes.fullscreenImage} src={ArchitecturePlan} alt="Ein Architekturplan" />
+        <img className={classes.fullscreenImage} src={Renovation} alt="Ein Architekturplan" />
       </GridItem>
       <GridItem
         halfHeight

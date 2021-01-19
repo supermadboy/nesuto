@@ -6,10 +6,12 @@ import GridItem, { BackgroundColor } from '../GridItem';
 import Instagram from '../../assets/svg/Icon_instagram.svg';
 import Mail from '../../assets/svg/Icon_mail.svg';
 import LinkedIn from '../../assets/svg/icon_linkedin.svg';
+import SideBreadcrumb from '../SideBreadcrumb';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   fullHeight: {
     height: '100%',
+    position: 'relative',
   },
   iconContainer: {
     display: 'flex',
@@ -24,9 +26,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    '& h2': {
+      lineHeight: '100px',
+      fontFamily: '"Source Sans Pro"',
+    },
   },
   upperLeftInnerTextHeader: {
-    letterSpacing: '15px',
+    letterSpacing: '5px',
   },
   upperLeftInnerText: {
     display: 'flex',
@@ -63,6 +69,11 @@ const Contact = () => {
         // @ts-ignore
         // eslint-disable-next-line
       }<a name="Kontakt"></a>
+
+      <SideBreadcrumb
+        title="Kontakt"
+        number="006"
+      />
 
       <GridItem
         halfHeight
@@ -127,8 +138,8 @@ const Contact = () => {
         <Typography
           variant="h1"
         >
-          <Link href="tel:+491731389000" color="inherit">
-            Tel.: 01731389000
+          <Link href="tel:+491746876640" color="inherit">
+            Tel.: 01746876640
           </Link>
         </Typography>
         <div className={classes.footer}>
@@ -145,7 +156,7 @@ const Contact = () => {
           <Typography
             variant="h5"
           >
-            Florastraße 5 40217 Düsseldorf
+            Florastraße 9 40217 Düsseldorf
           </Typography>
           <div className={classes.iconContainer}>
             <Link href="https://example.com">

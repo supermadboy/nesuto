@@ -3,19 +3,34 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 
+import NumberOne from '../../../assets/svg/number_1.svg';
+import NumberTwo from '../../../assets/svg/number_2.svg';
+import NumberThree from '../../../assets/svg/number_3.svg';
+import NumberFour from '../../../assets/svg/number_4.svg';
+import NumberFive from '../../../assets/svg/number_5.svg';
+
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   img: {
-    height: '450px',
-    marginTop: theme.spacing(3),
+    height: '300px',
+    transition: 'all linear 1s',
+    marginRight: theme.spacing(5),
+  },
+  content: {
+    display: 'flex',
+    transition: 'all linear 1s',
+    position: 'absolute',
+    width: '100%',
+    left: '50px',
   },
   textContent: {
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'center',
+    flexDirection: 'column',
     '& > h3': {
       marginBottom: theme.spacing(3),
     },
@@ -24,47 +39,125 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
   },
   dots: {
+    position: 'absolute',
+    bottom: '0',
     '& > div': {
       display: 'inline-block',
       marginRight: theme.spacing(2),
       width: '30px',
       height: '30px',
-      border: `2px solid ${theme.palette.primary.dark}`,
+      border: '2px solid black',
       borderRadius: '30px',
     },
   },
   activeDot: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: 'black',
   },
 }));
 
 interface ProcedureCarouselProps {
-    img: any;
-    title: string;
-    text: any;
+    currentSlide: number;
 }
 
 const ProcedureCarousel = (props: ProcedureCarouselProps) => {
   const classes = useStyles();
-  const { img, title, text } = props;
+  const {
+    currentSlide,
+  } = props;
+
+  const getStyle = (slideNumber: number): React.CSSProperties => {
+    const cssProperties = {
+      opacity: '0',
+      transform: 'translate(-50px, 0)',
+    };
+
+    if (slideNumber === currentSlide) {
+      cssProperties.opacity = '1';
+      cssProperties.transform = 'translate(0, 0)';
+    }
+
+    return cssProperties;
+  };
 
   return (
     <div className={classes.root}>
-      <img src={img} className={classes.img} alt="momentanerSchritt" />
-      <div className={classes.textContent}>
-        <Typography variant="h3">
-          {title}
-        </Typography>
-        <Typography variant="h5">
-          {text}
-        </Typography>
-        <div className={classes.dots}>
-          <div className={classes.activeDot} />
-          <div />
-          <div />
-          <div />
-          <div />
+
+      <div className={classes.content} style={getStyle(0)}>
+        <img src={NumberOne} className={classes.img} alt="momentanerSchritt" />
+        <div className={classes.textContent}>
+          <Typography variant="h3">
+            Beratung
+          </Typography>
+          <Typography variant="h5">
+            Beratungsgespräch
+            <br />
+            Erstellung Ihres Suchprofils
+            <br />
+            Zielfestlegung
+          </Typography>
         </div>
+      </div>
+
+      <div className={classes.content} style={getStyle(1)}>
+        <img src={NumberTwo} className={classes.img} alt="momentanerSchritt" />
+        <div className={classes.textContent}>
+          <Typography variant="h3">
+            XY
+          </Typography>
+          <Typography variant="h5">
+            Suche,
+            <br />
+            Beratung, Planung,
+            <br />
+            Architektenleistung
+          </Typography>
+        </div>
+      </div>
+
+      <div className={classes.content} style={getStyle(2)}>
+        <img src={NumberThree} className={classes.img} alt="momentanerSchritt" />
+        <div className={classes.textContent}>
+          <Typography variant="h3">
+            XY
+          </Typography>
+          <Typography variant="h5">
+            Finanzierungsstrategie,
+            <br />
+            Verkauf
+          </Typography>
+        </div>
+      </div>
+
+      <div className={classes.content} style={getStyle(3)}>
+        <img src={NumberFour} className={classes.img} alt="momentanerSchritt" />
+        <div className={classes.textContent}>
+          <Typography variant="h3">
+            XY
+          </Typography>
+          <Typography variant="h5">
+            Umbauphase
+          </Typography>
+        </div>
+      </div>
+
+      <div className={classes.content} style={getStyle(4)}>
+        <img src={NumberFive} className={classes.img} alt="momentanerSchritt" />
+        <div className={classes.textContent}>
+          <Typography variant="h3">
+            Beratung
+          </Typography>
+          <Typography variant="h5">
+            Einzug in Ihr
+            <br />
+            neues Zuhause
+          </Typography>
+        </div>
+      </div>
+
+      <div className={classes.dots}>
+        {
+          [0, 1, 2, 3, 4].map((n) => <div className={n === currentSlide ? classes.activeDot : ''} />)
+        }
       </div>
     </div>
   );
