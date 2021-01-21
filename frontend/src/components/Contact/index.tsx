@@ -1,5 +1,5 @@
 import {
-  createStyles, Grid, makeStyles, Typography, Link, Theme,
+  createStyles, Grid, makeStyles, Typography, Link, Theme, useMediaQuery,
 } from '@material-ui/core';
 import React from 'react';
 import GridItem, { BackgroundColor } from '../GridItem';
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   bottomRight: {
     display: 'flex',
     flexDirection: 'column',
-    '& h1': {
+    '& h1, h3': {
       flexGrow: 1,
       display: 'flex',
       justifyContent: 'center',
@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const Contact = () => {
   const classes = useStyles();
+  const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
     <Grid container className={classes.fullHeight}>
@@ -79,6 +80,7 @@ const Contact = () => {
         halfHeight
         backgroundColor={BackgroundColor.main}
         className={[classes.upperLeft]}
+        disableMobile
       >
         <div>
           <Typography
@@ -125,7 +127,7 @@ const Contact = () => {
         <Typography
           variant="h2"
         >
-          <Link href="https://example.com" color="inherit">
+          <Link href="mailto:kontakt@nesuto.de" color="inherit" target="_blank">
             Kontakt
           </Link>
         </Typography>
@@ -136,7 +138,7 @@ const Contact = () => {
         className={[classes.bottomRight]}
       >
         <Typography
-          variant="h1"
+          variant={mobile ? 'h3' : 'h1'}
         >
           <Link href="tel:+491746876640" color="inherit">
             Tel.: 01746876640
@@ -144,29 +146,29 @@ const Contact = () => {
         </Typography>
         <div className={classes.footer}>
           <Typography
-            variant="h5"
+            variant={mobile ? 'body1' : 'h5'}
           >
             Geschäftszeiten Mo—Fr, 8.30—16.00 Uhr
           </Typography>
           <Typography
-            variant="h5"
+            variant={mobile ? 'body1' : 'h5'}
           >
             nesuto Gmbh
           </Typography>
           <Typography
-            variant="h5"
+            variant={mobile ? 'body1' : 'h5'}
           >
-            Florastraße 9 40217 Düsseldorf
+            Florastraße 9, 40217 Düsseldorf
           </Typography>
           <div className={classes.iconContainer}>
-            <Link href="https://example.com">
+            <Link href="https://www.linkedin.com/company/nesuto-immobilien-architektur/" target="_blank">
               <img className={classes.externalIcons} src={LinkedIn} alt="linked in link" />
             </Link>
-            <Link href="https://example.com">
-              <img className={classes.externalIcons} src={Instagram} alt="linked in link" />
+            <Link href="https://www.instagram.com/nesuto_immobilien/" target="_blank">
+              <img className={classes.externalIcons} src={Instagram} alt="instagram in link" />
             </Link>
-            <Link href="https://example.com">
-              <img className={classes.externalIcons} src={Mail} alt="linked in link" />
+            <Link href="mailto:kontakt@nesuto.de" target="_blank">
+              <img className={classes.externalIcons} src={Mail} alt="mail address" />
             </Link>
           </div>
         </div>

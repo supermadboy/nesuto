@@ -1,5 +1,5 @@
 import {
-  createStyles, Grid, makeStyles, Theme, Typography,
+  createStyles, Grid, makeStyles, Theme, Typography, useMediaQuery,
 } from '@material-ui/core';
 import React from 'react';
 import GridItem, { BackgroundColor } from '../GridItem';
@@ -25,10 +25,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     alignItems: 'center',
     paddingTop: theme.spacing(16),
   },
+  mobileHeight: {
+    height: '50%',
+  },
 }));
 
 const AboutUs = () => {
   const classes = useStyles();
+  const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
     <Grid container className={classes.fullHeight}>
@@ -44,7 +48,7 @@ const AboutUs = () => {
 
       <GridItem
         backgroundColor={BackgroundColor.main}
-        className={[classes.fullHeight]}
+        className={[classes.fullHeight, mobile ? classes.mobileHeight : '']}
       >
         <div className={classes.content}>
           <img src={Thilo} alt="Thilo Stralkowski" className={classes.imgSize} />
@@ -59,7 +63,7 @@ const AboutUs = () => {
 
       <GridItem
         backgroundColor={BackgroundColor.white}
-        className={[classes.fullHeight]}
+        className={[classes.fullHeight, mobile ? classes.mobileHeight : '']}
       >
         <div className={classes.content}>
           <img src={Lena} alt="Lena Herrmann" className={classes.imgSize} />

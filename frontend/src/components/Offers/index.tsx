@@ -81,7 +81,7 @@ const Offers = () => {
           <Typography
             variant="h5"
           >
-            ihre Traumimmobilie
+            Ihre Traumimmobilie
           </Typography>
         </div>
         <img src={Arrow} className={classes.arrow} alt="ein pfeilchen" />

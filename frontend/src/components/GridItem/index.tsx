@@ -4,9 +4,6 @@ import {
 import React, { ReactNode } from 'react';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  mobile: {
-    display: 'none',
-  },
   halfHeight: {
     height: '50%',
   },
@@ -24,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   defaultBackground: {
     backgroundColor: 'transparent',
+  },
+  mobile: {
+    display: 'none!important',
   },
 }));
 

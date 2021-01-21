@@ -1,5 +1,5 @@
 import {
-  createStyles, makeStyles, Paper,
+  createStyles, makeStyles, Paper, Theme, useMediaQuery,
 } from '@material-ui/core';
 import React from 'react';
 import AboutUs from '../AboutUs';
@@ -17,10 +17,14 @@ const useStyles = makeStyles(() => createStyles({
     height: '100vh',
     width: '100%',
   },
+  mobile: {
+    height: '200vh',
+  },
 }));
 
 const Home = () => {
   const classes = useStyles();
+  const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
     <div className={classes.root}>
@@ -33,7 +37,7 @@ const Home = () => {
       <Paper elevation={0} className={classes.page}>
         <Procedure />
       </Paper>
-      <Paper elevation={0} className={classes.page}>
+      <Paper elevation={0} className={`${classes.page} ${mobile ? classes.mobile : ''}`}>
         <AboutUs />
       </Paper>
       <Paper elevation={0} className={classes.page}>

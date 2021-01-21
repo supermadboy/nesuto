@@ -1,15 +1,15 @@
 import {
-  createStyles, Link, makeStyles, Theme, Typography,
+  createStyles, Link, makeStyles, Theme, Typography, useMediaQuery,
 } from '@material-ui/core';
 import React from 'react';
 import Logo from '../../assets/svg/logo_with_typo.svg';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   navbar: {
+    zIndex: 10,
     display: 'flex',
-    position: 'absolute',
+    position: 'fixed',
     justifyContent: 'space-between',
-    backgroundColor: theme.palette.primary.main,
     padding: `${theme.spacing(1)}px ${theme.spacing(4)}px`,
     width: '100%',
     '& h5': {
@@ -25,22 +25,26 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   logo: {
     width: '150px',
   },
+  mobile: {
+    display: 'none',
+  },
 }));
 
 const Navbar = () => {
   const classes = useStyles();
+  const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
-    <div className={classes.navbar}>
+    <div className={`${classes.navbar} ${mobile ? classes.mobile : ''}`}>
       <div className={classes.links}>
         <Typography variant="h5">
-          <Link href="#WirBieten" color="inherit">
+          <Link href="/#WirBieten" color="inherit">
             Wir bieten
           </Link>
         </Typography>
         <Typography variant="h5">
-          <Link href="#ueberUns" color="inherit">
-            über uns
+          <Link href="/#ueberUns" color="inherit">
+            Über uns
           </Link>
         </Typography>
         <Typography variant="h5">
@@ -49,12 +53,14 @@ const Navbar = () => {
           </Link>
         </Typography>
         <Typography variant="h5">
-          <Link href="#Kontakt" color="inherit">
+          <Link href="/#Kontakt" color="inherit">
             Kontakt
           </Link>
         </Typography>
       </div>
-      <img className={classes.logo} src={Logo} alt="logo" />
+      <Link href="/#Home" color="inherit">
+        <img className={classes.logo} src={Logo} alt="logo" />
+      </Link>
     </div>
   );
 };

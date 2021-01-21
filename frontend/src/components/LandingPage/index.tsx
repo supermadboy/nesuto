@@ -1,4 +1,6 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import {
+  createStyles, makeStyles, Theme, useMediaQuery,
+} from '@material-ui/core';
 import React from 'react';
 import Navbar from '../Navbar';
 import LandingPageLogo from '../../assets/svg/Log_LandingPage.svg';
@@ -17,13 +19,21 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   logo: {
     width: '50%',
   },
+  mobile: {
+    backgroundImage: 'none',
+  },
 }));
 
 const LandingPage = () => {
   const classes = useStyles();
+  const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
-    <div className={classes.landingPage}>
+    <div className={`${classes.landingPage} ${mobile ? classes.mobile : ''}`}>
+      {
+        // @ts-ignore
+        // eslint-disable-next-line
+      }<a name="Home"></a>
       <SideBreadcrumb
         title="nesuto"
         number="001"
