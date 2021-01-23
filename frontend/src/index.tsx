@@ -59,6 +59,11 @@ let theme = createMuiTheme({
 });
 
 theme = responsiveFontSizes(theme);
+theme.typography.body1 = {
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1rem',
+  },
+};
 
 ReactDOM.render(
   <ApolloProvider client={client}>

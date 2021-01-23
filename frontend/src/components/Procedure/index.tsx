@@ -34,7 +34,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     paddingBottom: theme.spacing(5),
   },
   graphicImage: {
-    width: '70%',
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    '& img': {
+      width: '70%',
+    },
   },
   upperRight: {
     display: 'flex',
@@ -46,6 +51,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       height: '80%',
       alignItems: 'center',
       color: 'black',
+      [theme.breakpoints.down('sm')]: {
+        width: '80%',
+      },
     },
   },
   upperRightContainer: {
@@ -84,7 +92,14 @@ const Procedure = () => {
         backgroundColor={BackgroundColor.white}
         disableMobile
       >
-        <img className={classes.graphicImage} src={Graphic} alt="Grafik für nesutos Vorgehen" />
+        <picture className={classes.graphicImage}>
+          <source
+            media="(max-width: 767px)"
+            sizes="1px"
+            srcSet="blank.gif 1w"
+          />
+          <img src={Graphic} alt="Grafik für nesutos Vorgehen" />
+        </picture>
       </GridItem>
       <GridItem
         className={[classes.fullHeight]}
@@ -136,6 +151,7 @@ const Procedure = () => {
         <GridItem
           halfHeight
           fullWidth
+          text
           backgroundColor={BackgroundColor.dark}
           className={[classes.bottomRight]}
         >

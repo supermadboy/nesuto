@@ -20,6 +20,10 @@ const useStyles = makeStyles(() => createStyles({
   mobile: {
     height: '200vh',
   },
+  mobileHeight: {
+    height: 'auto',
+    minHeight: '100vh',
+  },
 }));
 
 const Home = () => {
@@ -31,7 +35,13 @@ const Home = () => {
       <Paper elevation={0} className={classes.page}>
         <LandingPage />
       </Paper>
-      <Paper elevation={0} className={classes.page}>
+      <Paper
+        elevation={0}
+        className={`
+          ${classes.page}
+          ${mobile ? classes.mobileHeight : ''}
+        `}
+      >
         <WeOffer />
       </Paper>
       <Paper elevation={0} className={classes.page}>

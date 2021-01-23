@@ -22,11 +22,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       maxWidth: '400px',
       textAlign: 'center',
     },
+    [theme.breakpoints.down('sm')]: {
+      margin: `${theme.spacing(3)}px 0`,
+    },
   },
   nestImage: {
     width: '25%',
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '0',
+    },
   },
   logo: {
     width: '25%',
@@ -45,6 +51,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       marginTop: theme.spacing(3),
       textAlign: 'center',
       maxWidth: '540px',
+    },
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
     },
   },
 }));
@@ -66,6 +76,7 @@ const WeOffer = () => {
 
       <GridItem
         halfHeight
+        text
         className={[classes.upperLeft]}
         backgroundColor={BackgroundColor.light}
       >
@@ -80,16 +91,31 @@ const WeOffer = () => {
         halfHeight
         disableMobile
       >
-        <img className={classes.fullscreenImage} src={Flat} alt="eine leere Wohnung" />
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            sizes="1px"
+            srcSet="blank.gif 1w"
+          />
+          <img className={classes.fullscreenImage} src={Flat} alt="eine leere Wohnung" />
+        </picture>
       </GridItem>
 
       <GridItem
         halfHeight
         disableMobile
       >
-        <img className={classes.fullscreenImage} src={Pencil} alt="eine schöne Blume" />
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            sizes="1px"
+            srcSet="blank.gif 1w"
+          />
+          <img className={classes.fullscreenImage} src={Pencil} alt="eine schöne Blume" />
+        </picture>
       </GridItem>
       <GridItem
+        text
         halfHeight
         className={[classes.bottomRight]}
         backgroundColor={BackgroundColor.white}

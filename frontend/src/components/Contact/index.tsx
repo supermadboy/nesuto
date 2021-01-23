@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   iconContainer: {
     display: 'flex',
     alignItems: 'flex-end',
+    '& a:first-child img': {
+      marginLeft: '0',
+    },
   },
   externalIcons: {
     width: '30px',
@@ -42,21 +45,36 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      height: '30%',
+    },
   },
   bottomRight: {
     display: 'flex',
     flexDirection: 'column',
+    [theme.breakpoints.down('sm')]: {
+      height: '70%',
+    },
     '& h1, h3': {
       flexGrow: 1,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      [theme.breakpoints.down('sm')]: {
+        flexGrow: 0,
+        marginTop: theme.spacing(3),
+      },
     },
   },
   footer: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: `0 ${theme.spacing(4)}px ${theme.spacing(1)}px ${theme.spacing(4)}px`,
+    [theme.breakpoints.down('sm')]: {
+      padding: '0',
+      flexDirection: 'column',
+      flexGrow: 1,
+    },
   },
 }));
 
@@ -78,6 +96,7 @@ const Contact = () => {
 
       <GridItem
         halfHeight
+        text
         backgroundColor={BackgroundColor.main}
         className={[classes.upperLeft]}
         disableMobile
@@ -121,6 +140,7 @@ const Contact = () => {
 
       <GridItem
         halfHeight
+        text
         backgroundColor={BackgroundColor.white}
         className={[classes.upperRight]}
       >
@@ -135,6 +155,7 @@ const Contact = () => {
       <GridItem
         halfHeight
         fullWidth
+        text
         className={[classes.bottomRight]}
       >
         <Typography

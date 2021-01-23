@@ -6,8 +6,8 @@ import Logo from '../../assets/svg/logo_with_typo.svg';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   navbar: {
+    display: 'none',
     zIndex: 10,
-    display: 'flex',
     position: 'fixed',
     justifyContent: 'space-between',
     padding: `${theme.spacing(1)}px ${theme.spacing(4)}px`,
@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   logo: {
     width: '150px',
   },
-  mobile: {
-    display: 'none',
+  nonMobile: {
+    display: 'flex',
   },
 }));
 
@@ -35,7 +35,7 @@ const Navbar = () => {
   const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
-    <div className={`${classes.navbar} ${mobile ? classes.mobile : ''}`}>
+    <div className={`${classes.navbar} ${mobile ? '' : classes.nonMobile}`}>
       <div className={classes.links}>
         <Typography variant="h5">
           <Link href="/#WirBieten" color="inherit">

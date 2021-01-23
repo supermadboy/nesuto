@@ -18,12 +18,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: '400px',
     paddingBottom: theme.spacing(2),
     paddingTop: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      width: '150px',
+    },
   },
   content: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     paddingTop: theme.spacing(16),
+    '& p': {
+      textAlign: 'center',
+    },
   },
   mobileHeight: {
     height: '50%',
@@ -47,6 +53,7 @@ const AboutUs = () => {
       />
 
       <GridItem
+        text
         backgroundColor={BackgroundColor.main}
         className={[classes.fullHeight, mobile ? classes.mobileHeight : '']}
       >
@@ -62,6 +69,7 @@ const AboutUs = () => {
       </GridItem>
 
       <GridItem
+        text
         backgroundColor={BackgroundColor.white}
         className={[classes.fullHeight, mobile ? classes.mobileHeight : '']}
       >

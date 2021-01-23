@@ -1,5 +1,5 @@
 import {
-  createStyles, makeStyles, Theme, useMediaQuery,
+  createStyles, makeStyles, Theme,
 } from '@material-ui/core';
 import React from 'react';
 import Navbar from '../Navbar';
@@ -15,21 +15,20 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     height: '100%',
     backgroundImage: `url(${BouncingCircles})`,
     position: 'relative',
+    [theme.breakpoints.down('sm')]: {
+      backgroundImage: 'none',
+    },
   },
   logo: {
     width: '50%',
-  },
-  mobile: {
-    backgroundImage: 'none',
   },
 }));
 
 const LandingPage = () => {
   const classes = useStyles();
-  const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
-    <div className={`${classes.landingPage} ${mobile ? classes.mobile : ''}`}>
+    <div className={classes.landingPage}>
       {
         // @ts-ignore
         // eslint-disable-next-line

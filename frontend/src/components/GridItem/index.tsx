@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   mobile: {
     display: 'none!important',
   },
+  text: {
+    padding: `0 ${theme.spacing(4)}px`,
+  },
 }));
 
 /* eslint-disable */
@@ -41,6 +44,7 @@ interface GridItemProps {
   halfHeight?: boolean;
   fullWidth?: boolean;
   disableMobile?: boolean;
+  text?: boolean;
   children?: ReactNode;
   className?: string[],
   backgroundColor?: BackgroundColor,
@@ -66,6 +70,7 @@ const GridItem: React.FunctionComponent<GridItemProps> = (props: GridItemProps) 
   const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const {
     halfHeight, children, disableMobile, className, fullWidth, backgroundColor,
+    text,
   } = props;
 
   return (
@@ -74,6 +79,7 @@ const GridItem: React.FunctionComponent<GridItemProps> = (props: GridItemProps) 
       xs={12}
       md={fullWidth ? 12 : 6}
       className={`
+        ${text ? classes.text : ''}
         ${halfHeight ? classes.halfHeight : ''}
         ${disableMobile && mobile ? classes.mobile : ''}
         ${className?.map((c) => ` ${c} `)}
@@ -88,6 +94,7 @@ const GridItem: React.FunctionComponent<GridItemProps> = (props: GridItemProps) 
 GridItem.defaultProps = {
   halfHeight: false,
   disableMobile: false,
+  text: false,
   fullWidth: false,
   children: null,
   className: [],

@@ -1,5 +1,5 @@
 import {
-  createStyles, makeStyles, Theme, Typography,
+  createStyles, makeStyles, Theme, Typography, useMediaQuery,
 } from '@material-ui/core';
 import React from 'react';
 
@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     height: '300px',
     transition: 'all linear 1s',
     marginRight: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      height: '100px',
+      marginRight: theme.spacing(2),
+    },
   },
   content: {
     display: 'flex',
@@ -26,15 +30,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'absolute',
     width: '100%',
     left: '50px',
+    [theme.breakpoints.down('sm')]: {
+      left: '25px',
+    },
   },
   textContent: {
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    '& > h3': {
+    '& > h3, h4': {
       marginBottom: theme.spacing(3),
     },
-    '& > h5': {
+    '& > h5, body1': {
       marginBottom: theme.spacing(3),
     },
   },
@@ -48,6 +55,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       height: '30px',
       border: '2px solid black',
       borderRadius: '30px',
+      [theme.breakpoints.down('sm')]: {
+        width: '15px',
+        height: '15px',
+      },
     },
   },
   activeDot: {
@@ -64,6 +75,8 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
   const {
     currentSlide,
   } = props;
+
+  const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   const getStyle = (slideNumber: number): React.CSSProperties => {
     const cssProperties = {
@@ -85,10 +98,10 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
       <div className={classes.content} style={getStyle(0)}>
         <img src={NumberOne} className={classes.img} alt="momentanerSchritt" />
         <div className={classes.textContent}>
-          <Typography variant="h3">
+          <Typography variant={mobile ? 'h4' : 'h3'}>
             Beratung
           </Typography>
-          <Typography variant="h5">
+          <Typography variant={mobile ? 'body1' : 'h5'}>
             Beratungsgespräch
             <br />
             Erstellung Ihres Suchprofils
@@ -101,10 +114,10 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
       <div className={classes.content} style={getStyle(1)}>
         <img src={NumberTwo} className={classes.img} alt="momentanerSchritt" />
         <div className={classes.textContent}>
-          <Typography variant="h3">
+          <Typography variant={mobile ? 'h4' : 'h3'}>
             XY
           </Typography>
-          <Typography variant="h5">
+          <Typography variant={mobile ? 'body1' : 'h5'}>
             Suche,
             <br />
             Beratung, Planung,
@@ -117,10 +130,10 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
       <div className={classes.content} style={getStyle(2)}>
         <img src={NumberThree} className={classes.img} alt="momentanerSchritt" />
         <div className={classes.textContent}>
-          <Typography variant="h3">
+          <Typography variant={mobile ? 'h4' : 'h3'}>
             XY
           </Typography>
-          <Typography variant="h5">
+          <Typography variant={mobile ? 'body1' : 'h5'}>
             Finanzierungsstrategie,
             <br />
             Verkauf
@@ -131,10 +144,10 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
       <div className={classes.content} style={getStyle(3)}>
         <img src={NumberFour} className={classes.img} alt="momentanerSchritt" />
         <div className={classes.textContent}>
-          <Typography variant="h3">
+          <Typography variant={mobile ? 'h4' : 'h3'}>
             XY
           </Typography>
-          <Typography variant="h5">
+          <Typography variant={mobile ? 'body1' : 'h5'}>
             Umbauphase
           </Typography>
         </div>
@@ -143,10 +156,10 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
       <div className={classes.content} style={getStyle(4)}>
         <img src={NumberFive} className={classes.img} alt="momentanerSchritt" />
         <div className={classes.textContent}>
-          <Typography variant="h3">
+          <Typography variant={mobile ? 'h4' : 'h3'}>
             Beratung
           </Typography>
-          <Typography variant="h5">
+          <Typography variant={mobile ? 'body1' : 'h5'}>
             Einzug in Ihr
             <br />
             neues Zuhause

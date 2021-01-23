@@ -1,5 +1,5 @@
 import {
-  createStyles, Grid, makeStyles, Theme, Typography,
+  createStyles, Grid, makeStyles, Theme, Typography, useMediaQuery,
 } from '@material-ui/core';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   arrow: {
     marginLeft: theme.spacing(10),
     height: '100px',
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.spacing(2),
+    },
   },
   bottomRight: {
     display: 'flex',
@@ -45,6 +48,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     alignItems: 'center',
     textAlign: 'center',
     backgroundImage: `url(${BouncingCircles})`,
+    [theme.breakpoints.down('sm')]: {
+      backgroundImage: 'none',
+    },
     '& span': {
       color: 'transparent',
     },
@@ -54,6 +60,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const Offers = () => {
   const history = useHistory();
   const classes = useStyles();
+  const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
     <Grid container className={classes.fullHeight}>
@@ -64,22 +71,27 @@ const Offers = () => {
 
       <GridItem
         halfHeight
+        text
         className={[classes.upperLeft]}
       >
-        <div>
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => history.push('/adverts')}
+          onKeyDown={() => history.push('/adverts')}
+        >
           <Typography
-            onClick={() => history.push('/adverts')}
-            variant="h2"
+            variant={mobile ? 'h3' : 'h2'}
           >
             Angebote
           </Typography>
           <Typography
-            variant="h5"
+            variant={mobile ? 'h6' : 'h5'}
           >
             Entdecken Sie hier
           </Typography>
           <Typography
-            variant="h5"
+            variant={mobile ? 'h6' : 'h5'}
           >
             Ihre Traumimmobilie
           </Typography>
@@ -91,34 +103,49 @@ const Offers = () => {
         disableMobile
         backgroundColor={BackgroundColor.white}
       >
-        <img className={classes.fullscreenSvg} src={ArrowHouse} alt="Ein Pfeil und ein Haus" />
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            sizes="1px"
+            srcSet="blank.gif 1w"
+          />
+          <img className={classes.fullscreenSvg} src={ArrowHouse} alt="Ein Pfeil und ein Haus" />
+        </picture>
       </GridItem>
       <GridItem
         halfHeight
         disableMobile
       >
-        <img className={classes.fullscreenImage} src={Renovation} alt="Ein Architekturplan" />
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            sizes="1px"
+            srcSet="blank.gif 1w"
+          />
+          <img className={classes.fullscreenImage} src={Renovation} alt="Ein Architekturplan" />
+        </picture>
       </GridItem>
       <GridItem
         halfHeight
+        text
         backgroundColor={BackgroundColor.dark}
         className={[classes.bottomRight]}
       >
         <div>
           <Typography
-            variant="h2"
+            variant={mobile ? 'h3' : 'h2'}
           >
             es rappelt im
           </Typography>
           <Typography
-            variant="h2"
+            variant={mobile ? 'h3' : 'h2'}
           >
             Umzugskart
             <span>o</span>
             n
           </Typography>
           <Typography
-            variant="h2"
+            variant={mobile ? 'h3' : 'h2'}
           >
             -t
             <span>o</span>
