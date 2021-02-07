@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon index.ts",
-    "gen-gql": "graphql-codegen --config codegen.yml"
+    "gen-gql": "graphql-codegen --config codegen.yml",
+    "preinstall": "npx npm-force-resolutions"
   },
   "dependencies": {
     "apollo-datasource-mongodb": "^0.2.8",
@@ -39,5 +40,8 @@
     "nodemon": "^2.0.6",
     "ts-node": "^9.0.0",
     "typescript": "^4.1.2"
+  },
+  "resolutions": {
+    "graphql-upload": "^11.0.0"
   }
 }
