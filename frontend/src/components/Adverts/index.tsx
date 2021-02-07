@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       width: '150px',
     },
     [theme.breakpoints.down('sm')]: {
-      display: 'flex',
+      display: 'none',
     },
   },
 }));

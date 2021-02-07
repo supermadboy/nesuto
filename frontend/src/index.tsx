@@ -46,8 +46,12 @@ let theme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
       '@global': {
+        html: {
+          minHeight: '100%',
+        },
         body: {
           backgroundColor: '#e0e4e1',
+          minHeight: '100%',
         },
       },
     },

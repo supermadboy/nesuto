@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   drawer: {
     backgroundColor: theme.palette.primary.main,
+    width: '200px',
   },
 }));
 
