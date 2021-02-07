@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '& a:first-child img': {
       marginLeft: '0',
     },
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(2),
+    },
   },
   externalIcons: {
     width: '30px',
@@ -54,9 +57,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     flexDirection: 'column',
     [theme.breakpoints.down('sm')]: {
       height: '70%',
+      justifyContent: 'space-between',
+      '& h3': {
+        fontSize: '2rem',
+      },
     },
     '& h1, h3': {
       flexGrow: 1,
+      fontFamily: 'Source Sans Pro',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -73,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     [theme.breakpoints.down('sm')]: {
       padding: '0',
       flexDirection: 'column',
-      flexGrow: 1,
+      justifyContent: 'flex-end',
     },
   },
 }));
@@ -158,26 +166,27 @@ const Contact = () => {
         text
         className={[classes.bottomRight]}
       >
+        <div />
         <Typography
           variant={mobile ? 'h3' : 'h1'}
         >
           <Link href="tel:+491746876640" color="inherit">
-            Tel.: 01746876640
+            Tel.: 0174 687 6640
           </Link>
         </Typography>
         <div className={classes.footer}>
           <Typography
-            variant={mobile ? 'body1' : 'h5'}
+            variant="body1"
           >
             Geschäftszeiten Mo—Fr, 8.30—16.00 Uhr
           </Typography>
           <Typography
-            variant={mobile ? 'body1' : 'h5'}
+            variant="body1"
           >
             nesuto Gmbh
           </Typography>
           <Typography
-            variant={mobile ? 'body1' : 'h5'}
+            variant="body1"
           >
             Florastraße 9, 40217 Düsseldorf
           </Typography>

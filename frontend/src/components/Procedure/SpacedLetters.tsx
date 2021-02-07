@@ -21,7 +21,8 @@ const SpacedLetters = (props: Props) => {
       {
         word.split('').map((c) => (
           <Typography
-            variant="h2"
+            key={c + Math.random()}
+            variant="h3"
           >
             {c}
           </Typography>

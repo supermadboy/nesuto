@@ -18,11 +18,10 @@ const useStyles = makeStyles(() => createStyles({
     width: '100%',
   },
   mobile: {
-    height: '200vh',
+    height: '100%',
   },
   mobileHeight: {
     height: 'auto',
-    minHeight: '100vh',
   },
 }));
 

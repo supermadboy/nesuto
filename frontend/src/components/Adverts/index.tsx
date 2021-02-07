@@ -21,13 +21,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   logo: {
     position: 'absolute',
-    display: 'flex',
+    display: 'none',
     justifyContent: 'center',
     top: theme.spacing(2),
     margin: 'auto',
     width: '100%',
     '& img': {
       width: '150px',
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
     },
   },
 }));

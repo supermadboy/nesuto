@@ -16,12 +16,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     alignItems: 'center',
   },
   img: {
-    height: '300px',
+    height: '200px',
     transition: 'all linear 1s',
     marginRight: theme.spacing(5),
     [theme.breakpoints.down('sm')]: {
       height: '100px',
       marginRight: theme.spacing(2),
+      display: 'none',
     },
   },
   content: {
@@ -30,19 +31,27 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'absolute',
     width: '100%',
     left: '50px',
+    top: '15%',
     [theme.breakpoints.down('sm')]: {
       left: '25px',
+      top: '35%',
+      width: 'calc(100% - 50px)',
+      justifyContent: 'center',
     },
   },
   textContent: {
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    '& > h3, h4': {
+    '& > h5, h4': {
+      fontFamily: 'Arvo',
       marginBottom: theme.spacing(3),
     },
-    '& > h5, body1': {
+    '& > h6, body1': {
       marginBottom: theme.spacing(3),
+    },
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'center',
     },
   },
   dots: {
@@ -51,13 +60,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '& > div': {
       display: 'inline-block',
       marginRight: theme.spacing(2),
-      width: '30px',
-      height: '30px',
+      width: '20px',
+      height: '20px',
       border: '2px solid black',
-      borderRadius: '30px',
+      borderRadius: '20px',
       [theme.breakpoints.down('sm')]: {
-        width: '15px',
-        height: '15px',
+        width: '10px',
+        height: '10px',
       },
     },
   },
@@ -98,15 +107,13 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
       <div className={classes.content} style={getStyle(0)}>
         <img src={NumberOne} className={classes.img} alt="momentanerSchritt" />
         <div className={classes.textContent}>
-          <Typography variant={mobile ? 'h4' : 'h3'}>
-            Beratung
+          <Typography variant={mobile ? 'h5' : 'h4'}>
+            Anfrage
           </Typography>
-          <Typography variant={mobile ? 'body1' : 'h5'}>
-            Beratungsgespräch
+          <Typography variant={mobile ? 'body1' : 'h6'}>
+            Sie stellen Ihre Anfrage
             <br />
-            Erstellung Ihres Suchprofils
-            <br />
-            Zielfestlegung
+            per Mail oder Telefon
           </Typography>
         </div>
       </div>
@@ -114,15 +121,13 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
       <div className={classes.content} style={getStyle(1)}>
         <img src={NumberTwo} className={classes.img} alt="momentanerSchritt" />
         <div className={classes.textContent}>
-          <Typography variant={mobile ? 'h4' : 'h3'}>
-            XY
+          <Typography variant={mobile ? 'h5' : 'h4'}>
+            Vorgespräch
           </Typography>
-          <Typography variant={mobile ? 'body1' : 'h5'}>
-            Suche,
+          <Typography variant={mobile ? 'body1' : 'h6'}>
+            Der Projektrahmen wird festgelegt
             <br />
-            Beratung, Planung,
-            <br />
-            Architektenleistung
+            Möglichkeiten werden besprochen
           </Typography>
         </div>
       </div>
@@ -130,13 +135,13 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
       <div className={classes.content} style={getStyle(2)}>
         <img src={NumberThree} className={classes.img} alt="momentanerSchritt" />
         <div className={classes.textContent}>
-          <Typography variant={mobile ? 'h4' : 'h3'}>
-            XY
+          <Typography variant={mobile ? 'h5' : 'h4'}>
+            Zielfestlegung
           </Typography>
-          <Typography variant={mobile ? 'body1' : 'h5'}>
-            Finanzierungsstrategie,
+          <Typography variant={mobile ? 'body1' : 'h6'}>
+            Möglichkeiten der Umsetzung,
             <br />
-            Verkauf
+            der Finanzen und Terminplan
           </Typography>
         </div>
       </div>
@@ -144,11 +149,13 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
       <div className={classes.content} style={getStyle(3)}>
         <img src={NumberFour} className={classes.img} alt="momentanerSchritt" />
         <div className={classes.textContent}>
-          <Typography variant={mobile ? 'h4' : 'h3'}>
-            XY
+          <Typography variant={mobile ? 'h5' : 'h4'}>
+            Planung
           </Typography>
-          <Typography variant={mobile ? 'body1' : 'h5'}>
-            Umbauphase
+          <Typography variant={mobile ? 'body1' : 'h6'}>
+            Umsetzung der Besprechung,
+            <br />
+            Terminplan und Bemusterung
           </Typography>
         </div>
       </div>
@@ -156,13 +163,13 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
       <div className={classes.content} style={getStyle(4)}>
         <img src={NumberFive} className={classes.img} alt="momentanerSchritt" />
         <div className={classes.textContent}>
-          <Typography variant={mobile ? 'h4' : 'h3'}>
-            Beratung
+          <Typography variant={mobile ? 'h5' : 'h4'}>
+            Umsetzung
           </Typography>
-          <Typography variant={mobile ? 'body1' : 'h5'}>
-            Einzug in Ihr
+          <Typography variant={mobile ? 'body1' : 'h6'}>
+            Bauausführung,
             <br />
-            neues Zuhause
+            Mängelbeseitigung, Abnahme
           </Typography>
         </div>
       </div>

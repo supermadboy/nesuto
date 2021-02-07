@@ -15,20 +15,24 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'relative',
   },
   imgSize: {
-    width: '400px',
+    width: '300px',
     paddingBottom: theme.spacing(2),
     paddingTop: theme.spacing(5),
     [theme.breakpoints.down('sm')]: {
       width: '150px',
+      paddingTop: 0,
     },
   },
   content: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: theme.spacing(16),
+    paddingTop: theme.spacing(10),
     '& p': {
       textAlign: 'center',
+    },
+    [theme.breakpoints.down('sm')]: {
+      padding: `${theme.spacing(5)}px 0`,
     },
   },
   mobileHeight: {

@@ -20,11 +20,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: 'center',
     alignItems: 'center',
     '& > div': {
-      minWidth: '60%',
+      minWidth: '50%',
     },
-    '& h2': {
+    '& h3': {
       fontFamily: '"Source Sans Pro"',
-      lineHeight: '100px',
+      lineHeight: '80px',
+      [theme.breakpoints.down('sm')]: {
+        lineHeight: '60px',
+      },
     },
   },
   upperLeft: {
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: 'center',
     width: '100%',
     '& img': {
-      width: '70%',
+      width: '55%',
     },
   },
   upperRight: {
@@ -51,9 +54,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       height: '80%',
       alignItems: 'center',
       color: 'black',
-      [theme.breakpoints.down('sm')]: {
-        width: '80%',
-      },
     },
   },
   upperRightContainer: {
@@ -66,9 +66,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
   },
   arrow: {
-    height: '70px',
+    height: '50px',
     cursor: 'pointer',
     zIndex: 1,
+    [theme.breakpoints.down('sm')]: {
+      width: '20px',
+    },
   },
   arrowContainer: {
     zIndex: 1,
@@ -116,10 +119,22 @@ const Procedure = () => {
               tabIndex={0}
               className={classes.arrowContainer}
               onClick={() => {
-                if (currentSlide > 0) setCurrentSlide(currentSlide - 1);
+                if (currentSlide > 0) {
+                  setCurrentSlide(currentSlide - 1);
+                  return;
+                }
+                if (currentSlide === 0) {
+                  setCurrentSlide(4);
+                }
               }}
               onKeyDown={() => {
-                if (currentSlide > 0) setCurrentSlide(currentSlide - 1);
+                if (currentSlide > 0) {
+                  setCurrentSlide(currentSlide - 1);
+                  return;
+                }
+                if (currentSlide === 0) {
+                  setCurrentSlide(4);
+                }
               }}
             >
               <img src={ArrowPrev} className={classes.arrow} alt="Pfeil zurück" />
@@ -134,10 +149,22 @@ const Procedure = () => {
               tabIndex={0}
               className={classes.arrowContainer}
               onClick={() => {
-                if (currentSlide < 4) setCurrentSlide(currentSlide + 1);
+                if (currentSlide < 4) {
+                  setCurrentSlide(currentSlide + 1);
+                  return;
+                }
+                if (currentSlide === 4) {
+                  setCurrentSlide(0);
+                }
               }}
               onKeyDown={() => {
-                if (currentSlide < 4) setCurrentSlide(currentSlide + 1);
+                if (currentSlide < 4) {
+                  setCurrentSlide(currentSlide + 1);
+                  return;
+                }
+                if (currentSlide === 4) {
+                  setCurrentSlide(0);
+                }
               }}
             >
               <img

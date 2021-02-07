@@ -33,13 +33,25 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     '& h5, h2': {
       textAlign: 'center',
+      [theme.breakpoints.down('sm')]: {
+        fontFamily: 'Arvo',
+      },
+    },
+    '& p': {
+      [theme.breakpoints.down('sm')]: {
+        textAlign: 'center',
+      },
+    },
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'space-between',
     },
   },
   arrow: {
     marginLeft: theme.spacing(10),
-    height: '100px',
+    height: '50px',
     [theme.breakpoints.down('sm')]: {
-      marginLeft: theme.spacing(2),
+      marginLeft: 0,
+      height: '50px',
     },
   },
   bottomRight: {
@@ -74,6 +86,7 @@ const Offers = () => {
         text
         className={[classes.upperLeft]}
       >
+        <div />
         <div
           role="button"
           tabIndex={0}
@@ -81,17 +94,17 @@ const Offers = () => {
           onKeyDown={() => history.push('/adverts')}
         >
           <Typography
-            variant={mobile ? 'h3' : 'h2'}
+            variant={mobile ? 'h5' : 'h2'}
           >
             Angebote
           </Typography>
           <Typography
-            variant={mobile ? 'h6' : 'h5'}
+            variant={mobile ? 'body1' : 'h5'}
           >
             Entdecken Sie hier
           </Typography>
           <Typography
-            variant={mobile ? 'h6' : 'h5'}
+            variant={mobile ? 'body1' : 'h5'}
           >
             Ihre Traumimmobilie
           </Typography>
@@ -140,18 +153,12 @@ const Offers = () => {
           <Typography
             variant={mobile ? 'h3' : 'h2'}
           >
-            Umzugskart
-            <span>o</span>
-            n
+            Umzugskarton
           </Typography>
           <Typography
             variant={mobile ? 'h3' : 'h2'}
           >
-            -t
-            <span>o</span>
-            n,-t
-            <span>o</span>
-            n.
+            -ton,-ton.
           </Typography>
         </div>
       </GridItem>

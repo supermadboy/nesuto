@@ -9,9 +9,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'absolute',
     zIndex: 1,
     left: '-60px',
-    top: '200px',
+    top: '150px',
     transform: 'rotate(-90deg)',
     width: '200px',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   seperator: {
     width: '50px',

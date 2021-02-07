@@ -5,6 +5,7 @@ import React from 'react';
 import Nest from '../../assets/images/nest-3836348_960_720_multipliziert.png';
 import Flat from '../../assets/images/chairs-2181968_1920.jpg';
 import Pencil from '../../assets/images/pencil-791107_1920.jpg';
+import MobilePicture from '../../assets/images/chair_with_books.jpeg';
 import Logo from '../../assets/svg/logo_with_typo.svg';
 import GridItem, { BackgroundColor } from '../GridItem';
 import SideBreadcrumb from '../SideBreadcrumb';
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
   },
   nestImage: {
-    width: '25%',
+    width: '15%',
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(1),
     [theme.breakpoints.down('sm')]: {
@@ -55,6 +56,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     [theme.breakpoints.down('sm')]: {
       paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(3),
+      '& h3': {
+        fontSize: '2rem',
+      },
     },
   },
 }));
@@ -79,6 +83,7 @@ const WeOffer = () => {
         text
         className={[classes.upperLeft]}
         backgroundColor={BackgroundColor.light}
+        disableMobile
       >
         <img src={Nest} className={classes.nestImage} alt="Nest" />
         <img src={Logo} className={classes.logo} alt="nesuto logo" />
@@ -89,15 +94,14 @@ const WeOffer = () => {
 
       <GridItem
         halfHeight
-        disableMobile
       >
         <picture>
           <source
             media="(max-width: 767px)"
             sizes="1px"
-            srcSet="blank.gif 1w"
+            srcSet={`${MobilePicture} 768w`}
           />
-          <img className={classes.fullscreenImage} src={Flat} alt="eine leere Wohnung" />
+          <img className={classes.fullscreenImage} src={Flat} alt="eine schöne Wohnung" />
         </picture>
       </GridItem>
 
@@ -111,7 +115,7 @@ const WeOffer = () => {
             sizes="1px"
             srcSet="blank.gif 1w"
           />
-          <img className={classes.fullscreenImage} src={Pencil} alt="eine schöne Blume" />
+          <img className={classes.fullscreenImage} src={Pencil} alt="ein Becher mit Stiften" />
         </picture>
       </GridItem>
       <GridItem
@@ -120,7 +124,7 @@ const WeOffer = () => {
         className={[classes.bottomRight]}
         backgroundColor={BackgroundColor.white}
       >
-        <Typography variant="h2">let us move you</Typography>
+        <Typography variant="h3">let us move you</Typography>
         <Typography variant="body1">
           Ihre Zufriedenheit ist unsere Leidenschaft. Interdisziplinäre
           Lösungen sind unser Grundgedanke. Wir finden, bilden und generieren Ihren neuen Raum,
