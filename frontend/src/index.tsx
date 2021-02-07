@@ -15,6 +15,7 @@ import Admin from './components/Admin';
 import reportWebVitals from './reportWebVitals';
 import client from './utility/apolloClient';
 import Login from './components/Admin/Login';
+import Impressum from './components/Impressum';
 
 let theme = createMuiTheme({
   palette: {
@@ -74,6 +75,7 @@ ReactDOM.render(
           <Route path={`${process.env.REACT_APP_ADMIN_ROUTE}/login`} component={Login} />
           <Route path={`${process.env.REACT_APP_ADMIN_ROUTE}`} component={Admin} />
           <Route path="/adverts" component={Adverts} />
+          <Route path="/impressum" component={Impressum} />
           <Route path="/" component={Home} />
         </Switch>
       </Router>

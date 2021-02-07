@@ -15,12 +15,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   iconContainer: {
     display: 'flex',
-    alignItems: 'flex-end',
+    flexDirection: 'row-reverse',
     '& a:first-child img': {
       marginLeft: '0',
     },
     [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(2),
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
   },
   externalIcons: {
@@ -82,6 +84,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       padding: '0',
       flexDirection: 'column',
       justifyContent: 'flex-end',
+    },
+  },
+  impressum: {
+    marginRight: theme.spacing(4),
+    [theme.breakpoints.down('sm')]: {
+      marginRight: '0',
+    },
+  },
+  footerText: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
     },
   },
 }));
@@ -155,7 +168,7 @@ const Contact = () => {
         <Typography
           variant="h2"
         >
-          <Link href="mailto:kontakt@nesuto.de" color="inherit" target="_blank">
+          <Link href="mailto:kontakt@nesuto.de" color="inherit" target="_blank" underline="always">
             Kontakt
           </Link>
         </Typography>
@@ -177,29 +190,39 @@ const Contact = () => {
         <div className={classes.footer}>
           <Typography
             variant="body1"
+            className={classes.footerText}
           >
             Geschäftszeiten Mo—Fr, 8.30—16.00 Uhr
           </Typography>
           <Typography
             variant="body1"
+            className={classes.footerText}
           >
             nesuto Gmbh
           </Typography>
           <Typography
             variant="body1"
+            className={classes.footerText}
           >
             Florastraße 9, 40217 Düsseldorf
           </Typography>
           <div className={classes.iconContainer}>
-            <Link href="https://www.linkedin.com/company/nesuto-immobilien-architektur/" target="_blank">
-              <img className={classes.externalIcons} src={LinkedIn} alt="linked in link" />
-            </Link>
-            <Link href="https://www.instagram.com/nesuto_immobilien/" target="_blank">
-              <img className={classes.externalIcons} src={Instagram} alt="instagram in link" />
-            </Link>
-            <Link href="mailto:kontakt@nesuto.de" target="_blank">
-              <img className={classes.externalIcons} src={Mail} alt="mail address" />
-            </Link>
+            <div>
+              <Link href="https://www.linkedin.com/company/nesuto-immobilien-architektur/" target="_blank">
+                <img className={classes.externalIcons} src={LinkedIn} alt="linked in link" />
+              </Link>
+              <Link href="https://www.instagram.com/nesuto_immobilien/" target="_blank">
+                <img className={classes.externalIcons} src={Instagram} alt="instagram in link" />
+              </Link>
+              <Link href="mailto:kontakt@nesuto.de" target="_blank">
+                <img className={classes.externalIcons} src={Mail} alt="mail address" />
+              </Link>
+            </div>
+            <Typography variant="body1" className={classes.impressum}>
+              <Link href="/impressum" color="inherit">
+                Impressum
+              </Link>
+            </Typography>
           </div>
         </div>
       </GridItem>
