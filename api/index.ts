@@ -11,7 +11,7 @@ import Users from './src/data-sources/Users';
 import ApartmentPictures from './src/data-sources/ApartmentPicture';
 
 dotenv.config({
-  path: path.join(__dirname, '../.env'),
+  path: path.join(__dirname, './.env'),
 });
 
 const mongoCredentials = `${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}`;
@@ -55,5 +55,5 @@ app.listen(
   {
     port: process.env.GRAPHQL_PORT,
   },
-  () => console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
+  () => console.log(`🚀 Server ready at http://localhost:4000${process.env.NODE_ENV} `),
 );

@@ -4,5 +4,6 @@ COPY package.json .
 RUN npm install
 COPY ./build .
 COPY .env .
+ENV NODE_ENV=production
 EXPOSE 4000
 CMD ["node","index.js"]
