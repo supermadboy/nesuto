@@ -5,7 +5,7 @@ import React from 'react';
 import Nest from '../../assets/images/nest-3836348_960_720_multipliziert.png';
 import Flat from '../../assets/images/chairs-2181968_1920.jpg';
 import Pencil from '../../assets/images/pencil-791107_1920.jpg';
-import MobilePicture from '../../assets/images/chair_with_books.jpeg';
+import MobilePicture from '../../assets/images/chairs-2181968_1920_mobile.jpg';
 import Logo from '../../assets/svg/logo_with_typo.svg';
 import GridItem, { BackgroundColor } from '../GridItem';
 import SideBreadcrumb from '../SideBreadcrumb';
@@ -94,12 +94,13 @@ const WeOffer = () => {
 
       <GridItem
         halfHeight
+        backgroundColor={BackgroundColor.white}
       >
         <picture>
           <source
             media="(max-width: 767px)"
             sizes="1px"
-            srcSet={`${MobilePicture} 768w`}
+            srcSet={`${MobilePicture} 700w`}
           />
           <img className={classes.fullscreenImage} src={Flat} alt="eine schöne Wohnung" />
         </picture>
@@ -128,7 +129,7 @@ const WeOffer = () => {
         <Typography variant="body1">
           Ihre Zufriedenheit ist unsere Leidenschaft. Interdisziplinäre
           Lösungen sind unser Grundgedanke. Wir finden, bilden und generieren Ihren neuen Raum,
-          sind Ihr offenes Ohr und Ihre arbeitende Hände. Zusammen mit Ihnen entwickeln wir
+          sind Ihr offenes Ohr und Ihre arbeitenden Hände. Zusammen mit Ihnen entwickeln wir
           unverwechselbare, individuelle Nester, damit Sie sich Zuhause fühlen. Wir finden
           Ihre passende Heimadresse im Raum Düsseldorf
         </Typography>

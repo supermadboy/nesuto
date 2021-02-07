@@ -28,10 +28,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    '& h2': {
+    '& h3': {
       marginBottom: theme.spacing(2),
     },
-    '& h5, h2': {
+    '& h5, h3': {
       textAlign: 'center',
       [theme.breakpoints.down('sm')]: {
         fontFamily: 'Arvo',
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
   },
   arrow: {
-    marginLeft: theme.spacing(10),
+    marginLeft: theme.spacing(5),
     height: '50px',
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
@@ -94,7 +94,7 @@ const Offers = () => {
           onKeyDown={() => history.push('/adverts')}
         >
           <Typography
-            variant={mobile ? 'h5' : 'h2'}
+            variant={mobile ? 'h5' : 'h3'}
           >
             Angebote
           </Typography>

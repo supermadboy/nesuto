@@ -82,10 +82,9 @@ const AboutUs = () => {
           <Typography variant="body1"><b>Lena Herrmann</b></Typography>
           <Typography variant="body2">Dipl. Ing. Architektur</Typography>
           <Typography variant="body2">Mehrjährige Berufserfahrung u.a. bei :</Typography>
-          <Typography variant="body2">der Stadt Innsbruck</Typography>
+          <Typography variant="body2">Stadt Innsbruck</Typography>
           <Typography variant="body2">A+R Architekten Stuttgart</Typography>
           <Typography variant="body2">RKW Architekten Düsseldorf</Typography>
-          <Typography variant="body2">Stadt Düsseldorf</Typography>
           <Typography variant="body2">Mitglied der Architektenkammer NRW</Typography>
         </div>
       </GridItem>
