@@ -73,7 +73,7 @@ const Navbar = () => {
                 </Typography>
               </ListItemText>
             </ListItem>
-            <ListItem button key="Wir bieten">
+            <ListItem button key="Über uns">
               <ListItemText>
                 <Typography variant="h5">
                   <Link href="/#ueberUns" color="inherit">
@@ -82,7 +82,7 @@ const Navbar = () => {
                 </Typography>
               </ListItemText>
             </ListItem>
-            <ListItem button key="Wir bieten">
+            <ListItem button key="Angebote">
               <ListItemText>
                 <Typography variant="h5">
                   <Link href="/adverts" color="inherit">
@@ -91,7 +91,7 @@ const Navbar = () => {
                 </Typography>
               </ListItemText>
             </ListItem>
-            <ListItem button key="Wir bieten">
+            <ListItem button key="Kontakt">
               <ListItemText>
                 <Typography variant="h5">
                   <Link href="/#Kontakt" color="inherit">

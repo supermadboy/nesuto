@@ -1,9 +1,12 @@
 import {
   createStyles, Link, makeStyles, Theme, Typography, useMediaQuery,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../Navbar';
+import ApartmentTile from '../ApartmentTile';
 import Logo from '../../assets/svg/logo_with_typo.svg';
+import getApartments from '../../utility/api';
+import { Apartment } from '../../utility/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -13,11 +16,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'relative',
   },
   content: {
-    display: 'flex',
-    height: '100%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: '74px',
+    paddingLeft: '32px',
+    paddingRight: '32px',
   },
   logo: {
     position: 'absolute',
@@ -33,11 +34,27 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       display: 'none',
     },
   },
+  adverts: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '16px',
+  },
 }));
 
 const Adverts = () => {
   const classes = useStyles();
   const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+
+  const [apartments, setApartments] = useState<Apartment[]>([]);
+
+  useEffect(() => {
+    const fetchApartments = async () => {
+      const result = await getApartments();
+      setApartments(result.data);
+    };
+
+    fetchApartments();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -50,10 +67,17 @@ const Adverts = () => {
       </div>
       <div className={classes.content}>
         <Typography
-          variant={mobile ? 'h3' : 'h1'}
+          variant={mobile ? 'h5' : 'h4'}
         >
-          Coming soon!
+          Unsere Angebote:
         </Typography>
+        <div className={classes.adverts}>
+          {
+            apartments.map((apartment) => (
+              <ApartmentTile key={apartment.id} apartment={apartment.attributes} />
+            ))
+          }
+        </div>
       </div>
     </div>
   );

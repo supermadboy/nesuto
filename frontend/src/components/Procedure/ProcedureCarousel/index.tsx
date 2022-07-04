@@ -176,7 +176,7 @@ const ProcedureCarousel = (props: ProcedureCarouselProps) => {
 
       <div className={classes.dots}>
         {
-          [0, 1, 2, 3, 4].map((n) => <div className={n === currentSlide ? classes.activeDot : ''} />)
+          [0, 1, 2, 3, 4].map((n) => <div key={n} className={n === currentSlide ? classes.activeDot : ''} />)
         }
       </div>
     </div>
