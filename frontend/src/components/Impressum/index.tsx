@@ -7,7 +7,7 @@ import Navbar from '../Navbar';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
     display: 'block',
-    height: '100vh',
+    minHeight: '100vh',
     width: '100%',
     position: 'relative',
     '& p': {

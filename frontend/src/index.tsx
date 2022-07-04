@@ -12,6 +12,7 @@ import Adverts from './components/Adverts';
 import Home from './components/Home';
 import reportWebVitals from './reportWebVitals';
 import Impressum from './components/Impressum';
+import Footer from './components/Footer';
 
 let theme = createMuiTheme({
   palette: {
@@ -75,6 +76,7 @@ ReactDOM.render(
         <Route path="/impressum" component={Impressum} />
         <Route path="/" component={Home} />
       </Switch>
+      <Footer />
     </Router>
   </ThemeProvider>,
   document.getElementById('root'),

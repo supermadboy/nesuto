@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Card, CardContent, CardMedia, createStyles, makeStyles, Theme, Typography,
+  Card, CardContent, CardMedia, createStyles, makeStyles, Theme, Typography, useMediaQuery,
 } from '@material-ui/core';
 import { ApartmentAttributes } from '../../utility/types';
 import ApartmentPopup from './ApartmentPopup';
@@ -10,7 +10,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     minWidth: '240px',
     backgroundColor: theme.palette.background.default,
     cursor: 'pointer',
-    flex: '1',
+    flexGrow: 1,
+    maxWidth: '32%',
+    width: '32%',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%',
+      width: 'auto',
+    },
   },
   hashtags: {
     display: 'flex',
@@ -26,6 +32,7 @@ interface ApartmentProps {
 const ApartmentTile: React.FunctionComponent<ApartmentProps> = (props: ApartmentProps) => {
   const { apartment } = props;
   const classes = useStyles();
+  const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const [open, isOpen] = useState(false);
 
   return (
@@ -33,8 +40,12 @@ const ApartmentTile: React.FunctionComponent<ApartmentProps> = (props: Apartment
       <CardContent>
         <CardMedia
           component="img"
-          height="194"
-          image={apartment.pictures.data[0].attributes.formats.thumbnail.url}
+          height={mobile ? '194' : '300'}
+          image={
+            mobile
+              ? apartment.pictures.data[0].attributes.formats.small.url
+              : apartment.pictures.data[0].attributes.formats.medium.url
+          }
           alt={apartment.pictures.data[0].attributes.alternativeText}
         />
         <Typography

@@ -1,5 +1,5 @@
 import {
-  createStyles, Link, makeStyles, Theme, Typography, useMediaQuery,
+  createStyles, Link, makeStyles, Theme,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import Navbar from '../Navbar';
@@ -11,7 +11,7 @@ import { Apartment } from '../../utility/types';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
     display: 'block',
-    height: '100vh',
+    minHeight: '100vh',
     width: '100%',
     position: 'relative',
   },
@@ -37,13 +37,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   adverts: {
     display: 'flex',
     flexWrap: 'wrap',
+    justifyContent: 'space-between',
     gap: '16px',
   },
 }));
 
 const Adverts = () => {
   const classes = useStyles();
-  const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   const [apartments, setApartments] = useState<Apartment[]>([]);
 
@@ -66,11 +66,6 @@ const Adverts = () => {
         </Link>
       </div>
       <div className={classes.content}>
-        <Typography
-          variant={mobile ? 'h5' : 'h4'}
-        >
-          Unsere Angebote:
-        </Typography>
         <div className={classes.adverts}>
           {
             apartments.map((apartment) => (
