@@ -16,9 +16,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     position: 'relative',
   },
   content: {
-    paddingTop: '74px',
-    paddingLeft: '32px',
-    paddingRight: '32px',
+    padding: `${theme.spacing(8)}px ${theme.spacing(4)}px 0 ${theme.spacing(4)}px`,
   },
   logo: {
     position: 'absolute',

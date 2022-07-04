@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: 'space-between',
     padding: `0 ${theme.spacing(4)}px ${theme.spacing(1)}px ${theme.spacing(4)}px`,
     [theme.breakpoints.down('sm')]: {
-      padding: '0',
       flexDirection: 'column',
       justifyContent: 'flex-end',
     },

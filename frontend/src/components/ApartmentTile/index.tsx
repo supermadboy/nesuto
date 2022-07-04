@@ -22,6 +22,21 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  apartmentPopup: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 600,
+    padding: `${theme.spacing(4)}px`,
+    backgroundColor: theme.palette.primary.dark,
+    [theme.breakpoints.down('sm')]: {
+      width: '80vw',
+    },
+    '& img': {
+      objectFit: 'contain',
+    },
+  },
 }));
 
 interface ApartmentProps {
@@ -34,10 +49,12 @@ const ApartmentTile: React.FunctionComponent<ApartmentProps> = (props: Apartment
   const classes = useStyles();
   const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const [open, isOpen] = useState(false);
+  const handleOpen = () => (!open && isOpen(true));
+  const handleClose = () => isOpen(false);
 
   return (
-    <Card className={classes.card} onClick={() => isOpen(!open)}>
-      <CardContent>
+    <Card className={classes.card}>
+      <CardContent onClick={handleOpen}>
         <CardMedia
           component="img"
           height={mobile ? '194' : '300'}
@@ -66,7 +83,8 @@ const ApartmentTile: React.FunctionComponent<ApartmentProps> = (props: Apartment
           </Typography>
         </div>
       </CardContent>
-      <ApartmentPopup apartment={apartment} open={open} />
+
+      <ApartmentPopup apartment={apartment} open={open} onClose={handleClose} />
     </Card>
   );
 };
