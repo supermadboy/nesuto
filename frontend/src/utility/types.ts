@@ -7,6 +7,7 @@ export interface ApartmentAttributes {
   pictures: {data: ApartmentPicture[]}
   price: number
   publishedAt: string
+  squareMeters: number
   subTitle: string
   title: string
   updatedAt:string

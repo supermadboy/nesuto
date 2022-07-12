@@ -3,6 +3,9 @@ import {
   createStyles, makeStyles, Modal, Theme, Typography, useMediaQuery,
 } from '@material-ui/core';
 import Slider from 'react-slick';
+// eslint-disable-next-line
+//@ts-ignore
+import ReactMarkdown from 'react-markdown';
 import { ApartmentAttributes } from '../../../utility/types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -19,6 +22,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     '& img': {
       objectFit: 'contain',
+    },
+  },
+  hashtags: {
+    marginBottom: '16px',
+  },
+  information: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    '& h5, h6': {
+      fontWeight: 'bold',
     },
   },
 }));
@@ -60,6 +74,55 @@ const ApartmentPopup: React.FunctionComponent<ApartmentPopupProps> = (props: Apa
         <Typography variant="h4">
           {apartment.title}
         </Typography>
+        <Typography
+          variant="body1"
+          className={classes.hashtags}
+        >
+          { Array.isArray(apartment.hashtags) && apartment.hashtags.map((hashtag) => (`#${hashtag}`)).join(' ') }
+        </Typography>
+
+        <div className={classes.information}>
+          <div>
+            <Typography
+              variant={mobile ? 'h6' : 'h5'}
+            >
+              {`${apartment.price.toLocaleString('de-de')} €`}
+            </Typography>
+            <Typography
+              variant="body2"
+            >
+              { apartment.paymentType === 'RENT' ? 'Kaltmiete' : 'Kaufpreis'}
+            </Typography>
+          </div>
+          <div>
+            <Typography
+              variant={mobile ? 'h6' : 'h5'}
+            >
+              {apartment.numberOfRooms}
+            </Typography>
+            <Typography
+              variant="body2"
+            >
+              Zimmer
+            </Typography>
+          </div>
+          <div>
+            <Typography
+              variant={mobile ? 'h6' : 'h5'}
+            >
+              {`${apartment.squareMeters} m²`}
+            </Typography>
+            <Typography
+              variant="body2"
+            >
+              Wohnfläche
+            </Typography>
+          </div>
+        </div>
+
+        <ReactMarkdown>
+          {apartment.description}
+        </ReactMarkdown>
       </div>
     </Modal>
   );
