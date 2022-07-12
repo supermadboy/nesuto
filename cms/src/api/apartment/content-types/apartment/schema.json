@@ -4,7 +4,8 @@
   "info": {
     "singularName": "apartment",
     "pluralName": "apartments",
-    "displayName": "Apartment"
+    "displayName": "Apartment",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -32,15 +33,15 @@
       "type": "integer"
     },
     "pictures": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true,
-      "required": true
+      ]
     },
     "hashtags": {
       "type": "json",
@@ -52,6 +53,10 @@
         "RENT",
         "BUY"
       ]
+    },
+    "squareMeters": {
+      "type": "integer",
+      "required": true
     }
   }
 }
